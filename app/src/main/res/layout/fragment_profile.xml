@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.ProfileFragment"
+    android:background="@color/paleta3">
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/degradado"
+        android:alpha="0.59" />
+
+    <TextView
+        android:id="@+id/tvMisDatos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/tv_mis_datos"
+        android:textSize="50dp"
+        android:textAllCaps="true"
+        android:fontFamily="@font/comic_sans"
+        android:textColor="@color/paleta2"
+        android:gravity="center" />
+
+    <LinearLayout
+        android:id="@+id/llFormulario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="110dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/et_nombre"
+            android:textSize="20dp"
+            android:fontFamily="@font/comfortaa_regular"
+            android:textColor="@color/paleta3"/>
+
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/comic_sans"
+            android:backgroundTint="@color/paleta1"
+            android:textColorHint="@color/paleta1"
+            android:gravity="center"
+            android:textSize="19sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:maxLines="1" />
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/et_correo"
+            android:textSize="20dp"
+            android:fontFamily="@font/comfortaa_regular"
+            android:textColor="@color/paleta3"/>
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/comic_sans"
+            android:backgroundTint="@color/paleta1"
+            android:textColorHint="@color/paleta1"
+            android:gravity="center"
+            android:textSize="19sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:inputType="textEmailAddress"
+            android:maxLines="1" />
+
+        <TextView
+            android:id="@+id/tvPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/et_password"
+            android:textSize="20dp"
+            android:fontFamily="@font/comfortaa_regular"
+            android:textColor="@color/paleta3"/>
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/comic_sans"
+            android:backgroundTint="@color/paleta1"
+            android:textColorHint="@color/paleta1"
+            android:imeActionLabel="Custom"
+            android:gravity="center"
+            android:textSize="19sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1" />
+
+    </LinearLayout>
+
+
+
+</FrameLayout>

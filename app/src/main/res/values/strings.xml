@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Meraki</string>
+    <string name="et_correo">Correo electrónico</string>
+    <string name="et_password">Contraseña</string>
+    <string name="btn_iniciar_sesión">Iniciar sesión</string>
+    <string name="tv_registrar">Registrarse</string>
+    <string name="tv_meraki">Meraki</string>
+    <string name="tv_pregunta">¿Cómo desea registrarse?</string>
+    <string name="tv_cliente">TI \nEN \nDA</string>
+    <string name="tv_usuario">CLI \nEN \nTE</string>
+    <string name="tv_titulo_t">TIENDA</string>
+    <string name="btn_registrar">REGISTRAR</string>
+    <string name="tv_cancelar">CANCELAR</string>
+    <string name="et_password_rep">Repetir contraseña</string>
+    <string name="et_cif">CIF</string>
+    <string name="et_ubicacion">Ubicacion</string>
+    <string name="tv_titulo_u">USUARIO</string>
+    <string name="et_nombre">Nombre</string>
+
+
+    <string-array name="tiendas_array">
+        <item>Comida</item>
+        <item>Ropa</item>
+        <item>Bricolaje</item>
+        <item>Juguetes</item>
+        <item>Otros</item>
+    </string-array>
+
+    <string-array name="tiendas_usuarios_array">
+        <item>Todas</item>
+        <item>Comida</item>
+        <item>Ropa</item>
+        <item>Bricolaje</item>
+        <item>Juguetes</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tv_saludo">HOLA!</string>
+    <string name="tv_pregunta_user">¿Qué tiendas desea explorar?</string>
+    <string name="tv_mis_datos">MIS DATOS</string>
+
+
+</resources>

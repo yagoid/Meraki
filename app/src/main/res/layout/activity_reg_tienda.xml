@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegTiendaActivity">
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/degradado"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/ivFondo"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_margin="30dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/nubes"
+        android:alpha="0.6"
+        android:background="@drawable/formulario_redondeado"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTituloT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/tv_titulo_t"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:textColor="@color/paleta1"
+        android:fontFamily="@font/comic_sans"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <LinearLayout
+        android:id="@+id/llFormulario"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloT">
+
+        <EditText
+            android:id="@+id/etEmailT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/et_correo"
+            android:fontFamily="@font/comic_sans"
+            android:backgroundTint="@color/paleta1"
+            android:textColorHint="@color/paleta1"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:inputType="textEmailAddress"
+            android:maxLines="1" />
+
+        <EditText
+            android:id="@+id/etCIF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/et_cif"
+            android:fontFamily="@font/comic_sans"
+            android:backgroundTint="@color/paleta1"
+            android:textColorHint="@color/paleta1"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:maxLines="1" />
+
+        <EditText
+            android:id="@+id/etUbicacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/et_ubicacion"
+            android:fontFamily="@font/comic_sans"
+            android:backgroundTint="@color/paleta1"
+            android:textColorHint="@color/paleta1"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:maxLines="1" />
+
+        <Spinner
+            android:id="@+id/spnTiendas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/comic_sans"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="5dp"
+            android:textAlignment="center"
+            android:backgroundTint="@color/paleta1"
+            android:background="@drawable/boton_redondeado_blanco"
+            android:gravity="center_horizontal" />
+
+        <EditText
+            android:id="@+id/etPasswordT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/et_password"
+            android:fontFamily="@font/comic_sans"
+            android:backgroundTint="@color/paleta1"
+            android:textColorHint="@color/paleta1"
+            android:imeActionLabel="Custom"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1" />
+
+        <EditText
+            android:id="@+id/etRepPasswordT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/et_password_rep"
+            android:fontFamily="@font/comic_sans"
+            android:backgroundTint="@color/paleta1"
+            android:textColorHint="@color/paleta1"
+            android:imeActionLabel="Custom"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnIniciar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="Registrar"
+        android:background="@drawable/boton_redondeado_blanco"
+        android:text="@string/btn_registrar"
+        android:textColor="@color/paleta3"
+        android:textSize="24sp"
+        android:fontFamily="@font/comfortaa_regular"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivFondo"/>
+
+    <TextView
+        android:id="@+id/tvCancelar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_cancelar"
+        android:textColor="@color/paleta1"
+        android:textSize="18sp"
+        android:fontFamily="@font/comfortaa_regular"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnIniciar"
+        android:clickable="true"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
