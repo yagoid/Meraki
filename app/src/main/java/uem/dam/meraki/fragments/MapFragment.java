@@ -3,7 +3,6 @@ package uem.dam.meraki.fragments;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -30,10 +28,10 @@ import uem.dam.meraki.UsuarioActivity;
  */
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
-    private FusedLocationProviderClient flClient;
     private GoogleMap mGoogleMap;
     private MapView mMapView;
     private View mView;
+    
     private Double lat;
     private Double lon;
 
@@ -47,6 +45,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_map, container, false);
 
+        // Recibimos las cordenadas de nuestra posición desde Usuario Activity
         if (getArguments() != null) {
             lat = getArguments().getDouble(UsuarioActivity.LAT_KEY);
             lon = getArguments().getDouble(UsuarioActivity.LON_KEY);
@@ -61,6 +60,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Creamos el mapa
         mMapView = mView.findViewById(R.id.map);
         if (mMapView != null) {
             mMapView.onCreate(null);
@@ -72,6 +72,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+        // Configuramos todas las opciones de nuestro mapa
         MapsInitializer.initialize(getContext());
         mGoogleMap = googleMap;
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
@@ -85,7 +86,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         } else {
             miLoc = new LatLng(lat, lon);
 
-            mGoogleMap.addMarker(new MarkerOptions().position(miLoc).title("MI UBICACION").icon(BitmapDescriptorFactory.fromResource(R.drawable.logo_icon)));
+            mGoogleMap.addMarker(new MarkerOptions().position(miLoc).title("MI UBICACION").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_logo)));
             mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(miLoc, 14));
         }
 
