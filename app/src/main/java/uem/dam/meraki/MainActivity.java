@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         tvRegistrarse = findViewById(R.id.tvRegistrarse);
         etPassword = findViewById(R.id.etPassword);
         etEmail = findViewById(R.id.etEmail);
-
+        //viva el padel
         // Hacemos que el textView sea clickable
         tvRegistrarse.setOnClickListener(new View.OnClickListener() {
             @Override
