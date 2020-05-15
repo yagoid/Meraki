@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Rama de YagoSaques
+
     TextView tvRegistrarse;
     EditText etPassword;
     EditText etEmail;
