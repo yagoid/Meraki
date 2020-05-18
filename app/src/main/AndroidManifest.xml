@@ -33,7 +33,7 @@
     </application>
 
     <uses-feature
-        android:glEsVersion="0x00010000"
+        android:glEsVersion="0x00060000"
         android:required="true"/>
 
 </manifest>
