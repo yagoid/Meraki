@@ -1,10 +1,8 @@
 package uem.dam.meraki.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -24,16 +22,9 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
     View view;
     Spinner spnTiendas;
-    private Context mContext;
 
     public HomeFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mContext=context;
     }
 
     @Override
