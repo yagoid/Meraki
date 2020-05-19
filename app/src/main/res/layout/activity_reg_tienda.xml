@@ -63,6 +63,7 @@
             android:fontFamily="@font/comic_sans"
             android:backgroundTint="@color/paleta1"
             android:textColorHint="@color/paleta1"
+            android:textColor="@color/paleta1"
             android:gravity="center"
             android:layout_marginTop="20dp"
             android:inputType="textEmailAddress"
@@ -76,28 +77,45 @@
             android:fontFamily="@font/comic_sans"
             android:backgroundTint="@color/paleta1"
             android:textColorHint="@color/paleta1"
+            android:textColor="@color/paleta1"
             android:gravity="center"
             android:layout_marginTop="20dp"
             android:maxLines="1" />
 
-        <EditText
-            android:id="@+id/etUbicacion"
+        <LinearLayout
+            android:id="@+id/llUbicacion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/et_ubicacion"
-            android:fontFamily="@font/comic_sans"
-            android:backgroundTint="@color/paleta1"
-            android:textColorHint="@color/paleta1"
-            android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:maxLines="1" />
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <EditText
+                android:id="@+id/etUbicacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/et_ubicacion"
+                android:fontFamily="@font/comic_sans"
+                android:backgroundTint="@color/paleta1"
+                android:textColorHint="@color/paleta1"
+                android:textColor="@color/paleta1"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:enabled="false" />
+
+            <ImageView
+                android:id="@+id/ivUbicacion"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ubicacion" />
+
+        </LinearLayout>
 
         <Spinner
             android:id="@+id/spnTiendas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/comic_sans"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="35dp"
             android:layout_marginBottom="5dp"
             android:textAlignment="center"
             android:backgroundTint="@color/paleta1"
@@ -112,6 +130,7 @@
             android:fontFamily="@font/comic_sans"
             android:backgroundTint="@color/paleta1"
             android:textColorHint="@color/paleta1"
+            android:textColor="@color/paleta1"
             android:imeActionLabel="Custom"
             android:gravity="center"
             android:layout_marginTop="20dp"
@@ -127,6 +146,7 @@
             android:fontFamily="@font/comic_sans"
             android:backgroundTint="@color/paleta1"
             android:textColorHint="@color/paleta1"
+            android:textColor="@color/paleta1"
             android:imeActionLabel="Custom"
             android:gravity="center"
             android:layout_marginTop="20dp"

@@ -39,6 +39,7 @@
     <string name="tv_saludo">HOLA!</string>
     <string name="tv_pregunta_user">¿Qué tiendas desea explorar?</string>
     <string name="tv_mis_datos">MIS DATOS</string>
+    <string name="btn_elegir_ubicacion">Elegir ubicación</string>
 
 
 </resources>
