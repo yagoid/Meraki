@@ -16,6 +16,11 @@
     <string name="et_ubicacion">Ubicacion</string>
     <string name="tv_titulo_u">USUARIO</string>
     <string name="et_nombre">Nombre</string>
+    <string name="msj_registrado">Usuario registrado</string>
+    <string name="msj_no_registrado">Usuario no registrado</string>
+    <string name="msj_no_accede">Error de acceso</string>
+    <string name="no_datos">Se deben rellenar todos los campos</string>
+    <string name="password_desigual">La confirmación no coincide con la contraseña</string>
 
 
     <string-array name="tiendas_array">
@@ -40,6 +45,8 @@
     <string name="tv_pregunta_user">¿Qué tiendas desea explorar?</string>
     <string name="tv_mis_datos">MIS DATOS</string>
     <string name="btn_elegir_ubicacion">Elegir ubicación</string>
+    <string name="pass_pocos_caracteres">La contraseña debe tener mas de cinco caracteres</string>
+    <string name="error_insercion_datos">Error en la inserción de datos</string>
 
 
 </resources>
