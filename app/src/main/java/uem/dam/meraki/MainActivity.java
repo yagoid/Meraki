@@ -111,4 +111,15 @@ public class MainActivity extends AppCompatActivity {
         return msj;
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (fa.getCurrentUser() != null) {
+            Intent i = new Intent(MainActivity.this, UsuarioActivity.class);
+            startActivity(i);
+            finish();
+        }
+    }
+
 }

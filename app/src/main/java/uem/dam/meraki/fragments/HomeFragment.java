@@ -11,9 +11,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import uem.dam.meraki.R;
+import uem.dam.meraki.UsuarioActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +24,9 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
     View view;
     Spinner spnTiendas;
+    TextView tvSaludo;
+
+    private String nombre;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -33,12 +38,22 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         // Se configuran las opciones que hay en el Spinner
         view = inflater.inflate(R.layout.fragment_home, container, false);
         spnTiendas = view.findViewById(R.id.spnTiendas);
+        tvSaludo = view.findViewById(R.id.tvSaludo);
 
+        // Configuramos el Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(), R.array.tiendas_usuarios_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnTiendas.setAdapter(adapter);
 
         spnTiendas.setOnItemSelectedListener(this);
+
+        // Recibimos el nombre del usuario logado y lo escribimos en tvSaludo
+        if (getArguments() != null) {
+            nombre = getArguments().getString(UsuarioActivity.CLAVE_NOMBRE);
+        }
+        if (nombre != null) {
+            tvSaludo.setText("¡HOLA " + nombre + "!");
+        }
 
         return view;
     }

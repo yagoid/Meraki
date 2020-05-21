@@ -3,8 +3,12 @@ package uem.dam.meraki;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -19,21 +23,19 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 import java.util.regex.Pattern;
 
 import uem.dam.meraki.model.Tienda;
 
 public class RegTiendaActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_LOCATION =123;
 
     private FirebaseAuth fa;
     private FirebaseUser fu;
@@ -81,6 +83,9 @@ public class RegTiendaActivity extends AppCompatActivity implements AdapterView.
         // Inicializamos la firebase
         InicializarFirebase();
 
+        // Pedimos los permisos de ubicación
+        pedirPermisos();
+
         // Recojemos la ubicación y la escribimos en su sitio
         ElegirUbicacion();
 
@@ -118,6 +123,28 @@ public class RegTiendaActivity extends AppCompatActivity implements AdapterView.
 
     }
 
+    // Con este método verificamos si tenemos los permisos de la localización
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case MY_PERMISSIONS_REQUEST_ACCESS_LOCATION:
+                // Si los permisos de localización son aceptados entonces el programas sigue
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    pedirPermisos();
+                }
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+    // Pedimos los permisos al usuario para acceder a su ubicación, si no los tenemos todavía
+    private void pedirPermisos() {
+        if (ContextCompat.checkSelfPermission(RegTiendaActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(RegTiendaActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(RegTiendaActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_ACCESS_LOCATION);
+        }
+    }
+
     private void InicializarFirebase() {
         // Inicializamos la firebase Auth
         fa = FirebaseAuth.getInstance();
@@ -133,7 +160,7 @@ public class RegTiendaActivity extends AppCompatActivity implements AdapterView.
     }
 
     public void Registrar(View view) {
-        // Registramos al usuario en la base de datos
+        // Registramos al usuario en firebase
         String msj = validarDatos();
 
         if (msj != null) {
@@ -143,7 +170,7 @@ public class RegTiendaActivity extends AppCompatActivity implements AdapterView.
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-
+                                // Añadimos los datos de la tienda a la base de datos
                                 String id = fa.getCurrentUser().getUid();
 
                                 Tienda t = new Tienda(id, email, CIF, tienda, latitud, longitud);
@@ -172,8 +199,8 @@ public class RegTiendaActivity extends AppCompatActivity implements AdapterView.
 
     }
 
+    // Comprobamos que los datos introducidos no estén incorrectos o vacíos
     private String validarDatos(){
-        // Comprobamos que los datos introducidos no estén incorrectos o vacíos
         email = etEmail.getText().toString().trim();
         pass = etPassword.getText().toString().trim();
         CIF = etCIF.getText().toString().trim();
@@ -214,8 +241,8 @@ public class RegTiendaActivity extends AppCompatActivity implements AdapterView.
         return msj;
     }
 
+    // Comprobamos que el email introducido tiene un formato válido
     private boolean validarEmail(String email) {
-        // Comprobamos que el email introducido es válido
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(email).matches();
     }

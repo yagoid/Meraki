@@ -24,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Pattern;
 
-import uem.dam.meraki.model.Tienda;
 import uem.dam.meraki.model.Usuario;
 
 public class RegUsuarioActivity extends AppCompatActivity {
@@ -97,7 +96,7 @@ public class RegUsuarioActivity extends AppCompatActivity {
 
     public void Registrar(View view) {
 
-        // Registramos al usuario en la base de datos
+        // Registramos al usuario en firebase
         String msj = validarDatos();
 
         if (msj != null) {
@@ -107,7 +106,7 @@ public class RegUsuarioActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-
+                        // Añadimos los datos del usuario a la base de datos
                         String id = fa.getCurrentUser().getUid();
 
                         Usuario u = new Usuario(id, nombre, email);
@@ -116,7 +115,7 @@ public class RegUsuarioActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task2) {
                                 if (task2.isSuccessful()) {
-                                    Intent i = new Intent(RegUsuarioActivity.this, RolActivity.class);
+                                    Intent i = new Intent(RegUsuarioActivity.this, UsuarioActivity.class);
                                     startActivity(i);
                                     finish();
                                 } else {
@@ -136,8 +135,8 @@ public class RegUsuarioActivity extends AppCompatActivity {
 
     }
 
+    // Comprobamos que los datos introducidos no estén incorrectos o vacíos
     private String validarDatos(){
-        // Comprobamos que los datos introducidos no estén incorrectos o vacíos
         nombre = etNombre.getText().toString().trim();
         email = etEmail.getText().toString().trim();
         pass = etPassword.getText().toString().trim();
@@ -174,8 +173,8 @@ public class RegUsuarioActivity extends AppCompatActivity {
         return msj;
     }
 
+    // Comprobamos que el email introducido tiene un formato válido
     private boolean validarEmail(String email) {
-        // Comprobamos que el email introducido es válido
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(email).matches();
     }

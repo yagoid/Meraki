@@ -9,12 +9,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -22,6 +24,12 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import uem.dam.meraki.fragments.HomeFragment;
 import uem.dam.meraki.fragments.MapFragment;
@@ -33,21 +41,36 @@ public class UsuarioActivity extends AppCompatActivity {
 
     public static final String LAT_KEY = "LAT";
     public static final String LON_KEY = "LON";
+    public static final String CLAVE_NOMBRE = "Nombre";
+
+    private FirebaseAuth fa;
+    private DatabaseReference dr;
+
+    private FragmentManager fm;
+    private FragmentTransaction ft;
 
     BottomNavigationView mBottomNavigation;
     FusedLocationProviderClient flClient;
     Location miLoc;
+
+    private String nombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario);
 
+        // Inicializamos la firebase
+        InicializarFirebase();
+
+        // Recogemos información del usuario
+        getInfoUser();
+
         // Pedimos los permisos de ubicación
         pedirPermisos();
 
-        // Cuando se habra la app veremos primero el fragment HomeFragment
-        showSelectedFragment(new HomeFragment());
+        // Cuando se habra UsuarioActivity veremos primero el fragment HomeFragment
+        abrirHomeFragment();
 
         mBottomNavigation = findViewById(R.id.bottomNavigation);
 
@@ -61,31 +84,12 @@ public class UsuarioActivity extends AppCompatActivity {
 
                 if (menuItem.getItemId() == R.id.menu_home) {
                     // Abrimos el HomeFragment
-                    showSelectedFragment(new HomeFragment());
+                    abrirHomeFragment();
                 }
 
                 if (menuItem.getItemId() == R.id.menu_maps) {
-
-                    FragmentManager fm = getSupportFragmentManager();
-                    FragmentTransaction ft = fm.beginTransaction();
-
-                    // Inicializamos un nuevo fragment
-                    MapFragment mapFragment = new MapFragment();
-
-                    // Guardamos la latitud y longitud de mi localización en LAT_KEY y LON_KEY par amandarlos al fragment
-                    Bundle bundleLoc = new Bundle();
-                    bundleLoc.putDouble(LAT_KEY, miLoc.getLatitude());
-                    bundleLoc.putDouble(LON_KEY, miLoc.getLongitude());
-
-                    // Pasamos la latitud y longitud de nuestra posición actual recojida con anterioridad a MapsFragment
-                    mapFragment.setArguments(bundleLoc);
-
-                    //Toast.makeText(getApplicationContext(), "lat: " + miLoc.getLatitude() + " lon: " + miLoc.getLongitude(), Toast.LENGTH_LONG).show();
-
-                    // Abrimos el mapsFragment
-                    ft.add(R.id.container, mapFragment);
-                    ft.commit();
-
+                    // Abrimos el MapFragment
+                    abrirMapFragment();
                 }
 
                 if (menuItem.getItemId() == R.id.menu_profile) {
@@ -98,17 +102,104 @@ public class UsuarioActivity extends AppCompatActivity {
         });
     }
 
+    // Le pasamos datos a MapFragment y hacemos que se ejecute
+    private void abrirMapFragment() {
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+
+        // Inicializamos un nuevo fragment
+        MapFragment mapFragment = new MapFragment();
+
+        // Guardamos la latitud y longitud de mi localización en LAT_KEY y LON_KEY para mandarlos al fragment
+        Bundle bundleLoc = new Bundle();
+        bundleLoc.putDouble(LAT_KEY, miLoc.getLatitude());
+        bundleLoc.putDouble(LON_KEY, miLoc.getLongitude());
+
+        // Pasamos la latitud y longitud de nuestra posición actual recojida con anterioridad a MapsFragment
+        mapFragment.setArguments(bundleLoc);
+
+        //Toast.makeText(getApplicationContext(), "lat: " + miLoc.getLatitude() + " lon: " + miLoc.getLongitude(), Toast.LENGTH_LONG).show();
+
+        // Abrimos el mapsFragment
+        ft.add(R.id.container, mapFragment);
+        ft.commit();
+    }
+
+    // Le pasamos datos a HomeFragment y hacemos que se ejecute el primero
+    private void abrirHomeFragment() {
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+
+        //Toast.makeText(getApplicationContext(), nombre, Toast.LENGTH_LONG).show();
+
+        // Inicializamos un nuevo fragment
+        HomeFragment homeFragment = new HomeFragment();
+
+        // Guardamos el nombre en CLAVE_NOMBRE para mandarlos al fragment
+        Bundle bundleNombre = new Bundle();
+        bundleNombre.putString(CLAVE_NOMBRE, nombre);
+
+        // Pasamos el nombre recojida con anterioridad a HomeFragment
+        homeFragment.setArguments(bundleNombre);
+
+        // Abrimos el homeFragment
+        ft.add(R.id.container, homeFragment);
+        ft.commit();
+    }
+
+    // Recogemos la información del usuario logado de la base de datos
+    private void getInfoUser() {
+        String id = fa.getCurrentUser().getUid();
+        dr.child("Usuarios").child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    nombre = dataSnapshot.child("nombre").getValue().toString();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void InicializarFirebase() {
+        // Inicializamos la firebase Auth
+        fa = FirebaseAuth.getInstance();
+
+        // Inicializamos la Firebase Database
+        dr = FirebaseDatabase.getInstance().getReference();
+    }
+
+    // Referenciamos el menú de cerrar sesión
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_cerrar_sesion, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Controlamos si se ha pulsado cerrar sesión
+        if (item.getItemId() == R.id.itmCerrarSesion){
+            fa.signOut();
+            Intent i = new Intent(UsuarioActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     // Con este método verificamos si tenemos los permisos de la localización
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode){
             case MY_PERMISSIONS_REQUEST_ACCESS_LOCATION:
                 // Si los permisos de localización son aceptados entonces el programas sigue
-                if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //Obtenemos la ubicación actual
                     obtenerUbicacionActual();
 
-                }else{
+                } else {
                     // Permission Denied
                     Toast.makeText(UsuarioActivity.this, "No se aceptó permisos", Toast.LENGTH_SHORT).show();
                     pedirPermisos();
@@ -130,6 +221,7 @@ public class UsuarioActivity extends AppCompatActivity {
 
         }
     }
+
 
     // Obtenemos nuestra ubicacion actual
     private void obtenerUbicacionActual() {
