@@ -18,7 +18,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import uem.dam.meraki.model.Usuario;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -95,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         //startActivity(i);
     }
 
+    // Comprobamos que los datos introducidos no estén vacíos
     private String validarDatos()  {
         email = etEmail.getText().toString().trim();
         pwd = etPassword.getText().toString().trim();
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        // Mantenemos abierta la sesión para no tener que rellenar los campos de login de nuevo
         if (fa.getCurrentUser() != null) {
             Intent i = new Intent(MainActivity.this, UsuarioActivity.class);
             startActivity(i);

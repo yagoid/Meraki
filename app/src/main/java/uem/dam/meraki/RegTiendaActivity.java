@@ -48,13 +48,13 @@ public class RegTiendaActivity extends AppCompatActivity implements AdapterView.
     ImageView ivUbicacion;
 
     EditText etEmail;
-    EditText etCIF;
+    EditText etNombreTienda;
     EditText etUbicacion;
     EditText etPassword;
     EditText etRepPassword;
 
     String email;
-    String CIF;
+    String nombreTienda;
     String ubicacion;
     String pass;
     String rPass;
@@ -75,7 +75,7 @@ public class RegTiendaActivity extends AppCompatActivity implements AdapterView.
         ivUbicacion = findViewById(R.id.ivUbicacion);
 
         etEmail = findViewById(R.id.etEmailT);
-        etCIF = findViewById(R.id.etCIF);
+        etNombreTienda = findViewById(R.id.etNombreTienda);
         etUbicacion = findViewById(R.id.etUbicacion);
         etPassword = findViewById(R.id.etPasswordT);
         etRepPassword = findViewById(R.id.etRepPasswordT);
@@ -173,7 +173,7 @@ public class RegTiendaActivity extends AppCompatActivity implements AdapterView.
                                 // Añadimos los datos de la tienda a la base de datos
                                 String id = fa.getCurrentUser().getUid();
 
-                                Tienda t = new Tienda(id, email, CIF, tienda, latitud, longitud);
+                                Tienda t = new Tienda(id, email, nombreTienda, tienda, latitud, longitud);
 
                                 dr.child("Tiendas").child(id).setValue(t).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
@@ -203,7 +203,7 @@ public class RegTiendaActivity extends AppCompatActivity implements AdapterView.
     private String validarDatos(){
         email = etEmail.getText().toString().trim();
         pass = etPassword.getText().toString().trim();
-        CIF = etCIF.getText().toString().trim();
+        nombreTienda = etNombreTienda.getText().toString().trim();
         rPass = etRepPassword.getText().toString().trim();
         ubicacion = etUbicacion.getText().toString().trim();
 
@@ -221,9 +221,9 @@ public class RegTiendaActivity extends AppCompatActivity implements AdapterView.
             msj = getString(R.string.no_datos);
             etEmail.setError("Required");
 
-        } else if (CIF.isEmpty()) {
+        } else if (nombreTienda.isEmpty()) {
             msj = getString(R.string.no_datos);
-            etCIF.setError("Required");
+            etNombreTienda.setError("Required");
 
         } else if (pass.isEmpty()) {
             msj = getString(R.string.no_datos);
@@ -247,7 +247,6 @@ public class RegTiendaActivity extends AppCompatActivity implements AdapterView.
         return pattern.matcher(email).matches();
     }
 
-
     private void ElegirUbicacion() {
         // Recojemos la latitud y longitud elegida en MapaActivity
         latitud = getIntent().getDoubleExtra(MapaActivity.CLAVE_LAT, latitud);
@@ -261,7 +260,6 @@ public class RegTiendaActivity extends AppCompatActivity implements AdapterView.
             etUbicacion.setText(lat + ", " + lon);
         }
     }
-
 
     // Métodos para registrar qué opción del Spinner se ha pulsado
     @Override

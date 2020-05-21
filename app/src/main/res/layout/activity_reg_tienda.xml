@@ -98,10 +98,10 @@
             android:maxLines="1" />
 
         <EditText
-            android:id="@+id/etCIF"
+            android:id="@+id/etNombreTienda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/et_cif"
+            android:hint="@string/et_nombre_tienda"
             android:fontFamily="@font/comic_sans"
             android:backgroundTint="@color/paleta1"
             android:textColorHint="@color/paleta1"

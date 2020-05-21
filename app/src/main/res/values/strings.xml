@@ -13,7 +13,7 @@
     <string name="tv_cancelar">CANCELAR</string>
     <string name="et_password_rep">Repetir contraseña</string>
     <string name="et_cif">CIF</string>
-    <string name="et_ubicacion">Ubicacion</string>
+    <string name="et_ubicacion">Ubicación de tienda</string>
     <string name="tv_titulo_u">USUARIO</string>
     <string name="et_nombre">Nombre</string>
     <string name="msj_registrado">Usuario registrado</string>
@@ -47,6 +47,7 @@
     <string name="btn_elegir_ubicacion">Elegir ubicación</string>
     <string name="pass_pocos_caracteres">La contraseña debe tener mas de cinco caracteres</string>
     <string name="error_insercion_datos">Error en la inserción de datos</string>
+    <string name="et_nombre_tienda">Nombre de tienda</string>
 
 
 </resources>

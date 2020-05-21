@@ -17,13 +17,19 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import uem.dam.meraki.R;
 import uem.dam.meraki.UsuarioActivity;
+import uem.dam.meraki.model.Tienda;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,9 +39,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mGoogleMap;
     private MapView mMapView;
     private View mView;
+
+    private DatabaseReference dr;
     
     private Double lat;
     private Double lon;
+    private LatLng newTienda;
 
     public MapFragment() {
         // Required empty public constructor
@@ -47,13 +56,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_map, container, false);
 
+        // Inicializamos la Firebase Database
+        dr = FirebaseDatabase.getInstance().getReference();
+
         // Recibimos las cordenadas de nuestra posición desde Usuario Activity
         if (getArguments() != null) {
             lat = getArguments().getDouble(UsuarioActivity.LAT_KEY);
             lon = getArguments().getDouble(UsuarioActivity.LON_KEY);
         }
 
-        Toast.makeText(getContext(), "lat: " + lat + " lon: " + lon, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(), "lat: " + lat + " lon: " + lon, Toast.LENGTH_LONG).show();
 
         return  mView;
     }
@@ -79,21 +91,47 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mGoogleMap = googleMap;
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
 
+        newTienda = null;
+
+        /* Buscamos en la base de datos todas las latitudes y longitudes de las tiendas para añadir
+        *  un marcador en el mapa  */
+        dr.child("Tiendas").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    Tienda t = snapshot.getValue(Tienda.class);
+
+                    String nombre = t.getNombre();
+                    Double latitud = t.getLatitud();
+                    Double longitud = t.getLongitud();
+
+                    newTienda = new LatLng(latitud, longitud);
+
+                    mGoogleMap.addMarker(new MarkerOptions().position(newTienda).title(nombre).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_logo)));
+
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), "Error en recoger los datos" + lon, Toast.LENGTH_LONG).show();
+            }
+        });
+
         LatLng miLoc = null;
 
-        if (lat == null) {
-            mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(40.689247, -74.044502)).title("Estatua de la libertad").snippet("I hope to go there some day"));
-            CameraPosition Liberty = CameraPosition.builder().target(new LatLng(40.689247, -74.044502)).zoom(14).bearing(0).build();
-            mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Liberty));
-        } else {
+        if (lat != null) {
             // Movemos la cámara hacia nuestra ubicación
             miLoc = new LatLng(lat, lon);
             mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(miLoc, 14));
             //mGoogleMap.addMarker(new MarkerOptions().position(miLoc).title("MI UBICACION").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_logo)));
         }
 
+        // Botones para que sea posible hacer zoom
         mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
 
+        // Círculo azul que nos indica nuestra posición
         LocationServices.getFusedLocationProviderClient(getContext()).getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {

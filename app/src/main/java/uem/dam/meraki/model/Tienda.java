@@ -3,23 +3,23 @@ package uem.dam.meraki.model;
 public class Tienda {
 
     private String uid;
-    private String Email;
-    private String CIF;
+    private String email;
+    private String nombre;
     private String tienda;
-    private Double Latitud;
-    private Double Longitud;
+    private Double latitud;
+    private Double longitud;
 
 
     public Tienda() {
     }
 
-    public Tienda(String uid, String email, String CIF, String tienda, Double latitud, Double longitud) {
+    public Tienda(String uid, String email, String nombre, String tienda, Double latitud, Double longitud) {
         this.uid = uid;
-        Email = email;
-        this.CIF = CIF;
+        this.email = email;
+        this.nombre = nombre;
         this.tienda = tienda;
-        Latitud = latitud;
-        Longitud = longitud;
+        this.latitud = latitud;
+        this.longitud = longitud;
     }
 
     public String getUid() {
@@ -31,19 +31,19 @@ public class Tienda {
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
-    public String getCIF() {
-        return CIF;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setCIF(String CIF) {
-        this.CIF = CIF;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getTienda() {
@@ -55,18 +55,18 @@ public class Tienda {
     }
 
     public Double getLatitud() {
-        return Latitud;
+        return latitud;
     }
 
     public void setLatitud(Double latitud) {
-        Latitud = latitud;
+        this.latitud = latitud;
     }
 
     public Double getLongitud() {
-        return Longitud;
+        return longitud;
     }
 
     public void setLongitud(Double longitud) {
-        Longitud = longitud;
+        this.longitud = longitud;
     }
 }
