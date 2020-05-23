@@ -12,4 +12,13 @@
         android:layout_height="match_parent"
         android:layout_gravity="top"/>
 
+    <TextView
+        android:id="@+id/tvTiendaBuscadas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:fontFamily="@font/comfortaa_regular"
+        android:textColor="@color/paleta3"/>
+
 </FrameLayout>

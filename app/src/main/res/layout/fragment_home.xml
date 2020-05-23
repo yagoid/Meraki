@@ -6,48 +6,56 @@
     tools:context=".fragments.HomeFragment"
     android:background="@color/paleta3">
 
-    <ImageView
-        android:id="@+id/backgroundImage"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@drawable/degradado"
-        android:alpha="0.59" />
+        android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/tvSaludo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/tv_saludo"
-        android:textSize="50dp"
-        android:textAllCaps="true"
-        android:fontFamily="@font/comic_sans"
-        android:textColor="@color/paleta2"
-        android:gravity="center" />
+        <ImageView
+            android:id="@+id/backgroundImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/degradado"
+            android:alpha="0.59" />
 
-    <TextView
-        android:id="@+id/tvPreg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="110dp"
-        android:text="@string/tv_pregunta_user"
-        android:textSize="20dp"
-        android:fontFamily="@font/comfortaa_regular"
-        android:textColor="@color/paleta1"
-        android:gravity="center" />
+        <TextView
+            android:id="@+id/tvSaludo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/tv_saludo"
+            android:textSize="50dp"
+            android:textAllCaps="true"
+            android:fontFamily="@font/comic_sans"
+            android:textColor="@color/paleta2"
+            android:gravity="center" />
 
-    <Spinner
-        android:id="@+id/spnTiendas"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:fontFamily="@font/comic_sans"
-        android:layout_marginTop="180dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:textAlignment="center"
-        android:backgroundTint="@color/paleta1"
-        android:background="@drawable/boton_redondeado_blanco"
-        android:gravity="center_horizontal" />
+        <TextView
+            android:id="@+id/tvPreg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/tv_pregunta_user"
+            android:textSize="20dp"
+            android:fontFamily="@font/comfortaa_regular"
+            android:textColor="@color/paleta1"
+            android:gravity="center"
+            android:layout_below="@+id/tvSaludo"/>
+
+        <Spinner
+            android:id="@+id/spnTiendas"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:fontFamily="@font/comic_sans"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:textAlignment="center"
+            android:backgroundTint="@color/paleta1"
+            android:background="@drawable/boton_redondeado_blanco"
+            android:gravity="center_horizontal"
+            android:layout_below="@+id/tvPreg"/>
+
+    </RelativeLayout>
 
 </FrameLayout>

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +25,9 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     View view;
     Spinner spnTiendas;
     TextView tvSaludo;
+    TextView tvTienda;
 
+    private String tienda;
     private String nombre;
 
     public HomeFragment() {
@@ -43,7 +46,6 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(), R.array.tiendas_usuarios_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnTiendas.setAdapter(adapter);
-
         spnTiendas.setOnItemSelectedListener(this);
 
         // Recibimos el nombre del usuario logado y lo escribimos en tvSaludo
@@ -62,7 +64,13 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         parent.getItemAtPosition(pos);
 
-        Toast.makeText(getContext(), spnTiendas.getSelectedItem().toString() , Toast.LENGTH_LONG).show();
+        tienda = spnTiendas.getSelectedItem().toString();
+
+        // Comprobamos que opción del spinner se ha pulsado y la guardamos en tienda
+        tienda = spnTiendas.getSelectedItem().toString();
+
+        tvTienda = getActivity().findViewById(R.id.tvTienda);
+        tvTienda.setText(tienda);
     }
     @Override
     public void onNothingSelected(AdapterView<?> parent) {

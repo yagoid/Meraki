@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -41,6 +42,9 @@ public class UsuarioActivity extends AppCompatActivity {
 
     public static final String LAT_KEY = "LAT";
     public static final String LON_KEY = "LON";
+    public static final String CLAVE_TIENDA = "Tienda";
+    public static final String CLAVE_UID = "UID";
+    public static final String CLAVE_EMAIL = "Email";
     public static final String CLAVE_NOMBRE = "Nombre";
 
     private FirebaseAuth fa;
@@ -53,12 +57,20 @@ public class UsuarioActivity extends AppCompatActivity {
     FusedLocationProviderClient flClient;
     Location miLoc;
 
+    private TextView tvTienda;
+
+    private String uid;
+    private String tienda;
+    private String email;
     private String nombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario);
+
+        mBottomNavigation = findViewById(R.id.bottomNavigation);
+        tvTienda = findViewById(R.id.tvTienda);
 
         // Inicializamos la firebase
         InicializarFirebase();
@@ -72,8 +84,6 @@ public class UsuarioActivity extends AppCompatActivity {
         // Cuando se habra UsuarioActivity veremos primero el fragment HomeFragment
         abrirHomeFragment();
 
-        mBottomNavigation = findViewById(R.id.bottomNavigation);
-
         // Método para cambiar los colores del bottom navigation view
         changeColor();
 
@@ -85,21 +95,27 @@ public class UsuarioActivity extends AppCompatActivity {
                 if (menuItem.getItemId() == R.id.menu_home) {
                     // Abrimos el HomeFragment
                     abrirHomeFragment();
+
+                    // Recibimos los datos del spinner mandados del HomeFragment
+                    tienda = tvTienda.getText().toString().trim();
                 }
 
                 if (menuItem.getItemId() == R.id.menu_maps) {
+                    // Recibimos los datos del spinner mandados del HomeFragment
+                    tienda = tvTienda.getText().toString().trim();
                     // Abrimos el MapFragment
                     abrirMapFragment();
                 }
 
                 if (menuItem.getItemId() == R.id.menu_profile) {
                     // Abrimos el ProfileFragment
-                    showSelectedFragment(new ProfileFragment());
+                    abrirProfileFragment();
                 }
 
                 return true;
             }
         });
+
     }
 
     // Le pasamos datos a MapFragment y hacemos que se ejecute
@@ -111,12 +127,14 @@ public class UsuarioActivity extends AppCompatActivity {
         MapFragment mapFragment = new MapFragment();
 
         // Guardamos la latitud y longitud de mi localización en LAT_KEY y LON_KEY para mandarlos al fragment
-        Bundle bundleLoc = new Bundle();
-        bundleLoc.putDouble(LAT_KEY, miLoc.getLatitude());
-        bundleLoc.putDouble(LON_KEY, miLoc.getLongitude());
+        Bundle bundle = new Bundle();
+        bundle.putDouble(LAT_KEY, miLoc.getLatitude());
+        bundle.putDouble(LON_KEY, miLoc.getLongitude());
+
+        bundle.putString(CLAVE_TIENDA, tienda);
 
         // Pasamos la latitud y longitud de nuestra posición actual recojida con anterioridad a MapsFragment
-        mapFragment.setArguments(bundleLoc);
+        mapFragment.setArguments(bundle);
 
         //Toast.makeText(getApplicationContext(), "lat: " + miLoc.getLatitude() + " lon: " + miLoc.getLongitude(), Toast.LENGTH_LONG).show();
 
@@ -147,14 +165,36 @@ public class UsuarioActivity extends AppCompatActivity {
         ft.commit();
     }
 
+    // Le pasamos datos a ProfileFragment y hacemos que se ejecute
+    private void abrirProfileFragment() {
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+
+        // Inicializamos un nuevo fragment
+        ProfileFragment profileFragment = new ProfileFragment();
+
+        // Guardamos el nombre en CLAVE_NOMBRE para mandarlos al fragment
+        Bundle bundle = new Bundle();
+        bundle.putString(CLAVE_NOMBRE, nombre);
+        bundle.putString(CLAVE_EMAIL, email);
+
+        // Pasamos el nombre recojida con anterioridad a HomeFragment
+        profileFragment.setArguments(bundle);
+
+        // Abrimos el homeFragment
+        ft.add(R.id.container, profileFragment);
+        ft.commit();
+    }
+
     // Recogemos la información del usuario logado de la base de datos
     private void getInfoUser() {
-        String id = fa.getCurrentUser().getUid();
-        dr.child("Usuarios").child(id).addValueEventListener(new ValueEventListener() {
+        uid = fa.getCurrentUser().getUid();
+        dr.child("Usuarios").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     nombre = dataSnapshot.child("nombre").getValue().toString();
+                    email = dataSnapshot.child("email").getValue().toString();
                 }
             }
             @Override
@@ -222,7 +262,6 @@ public class UsuarioActivity extends AppCompatActivity {
         }
     }
 
-
     // Obtenemos nuestra ubicacion actual
     private void obtenerUbicacionActual() {
         flClient = LocationServices.getFusedLocationProviderClient(UsuarioActivity.this);
@@ -273,5 +312,4 @@ public class UsuarioActivity extends AppCompatActivity {
         mBottomNavigation.setItemIconTintList(iconsColorStates);
         mBottomNavigation.setItemTextColor(textColorStates);
     }
-
 }

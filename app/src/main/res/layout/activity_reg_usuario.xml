@@ -16,19 +16,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <ImageView
-        android:id="@+id/ivFondo"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_margin="30dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/nubes"
-        android:alpha="0.6"
-        android:background="@drawable/formulario_redondeado"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivFondo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/nubes"
+            android:alpha="0.6"
+            android:background="@drawable/formulario_redondeado"
+            android:layout_centerInParent="true"
+            android:layout_above="@+id/btnIniciar" />
+
+        <Button
+            android:id="@+id/btnIniciar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="Registrar"
+            android:background="@drawable/boton_redondeado_blanco"
+            android:text="@string/btn_registrar"
+            android:textColor="@color/paleta3"
+            android:textSize="24sp"
+            android:fontFamily="@font/comfortaa_regular"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:layout_marginBottom="15dp"
+            android:layout_centerInParent="true"
+            android:layout_above="@+id/tvCancelar"/>
+
+        <TextView
+            android:id="@+id/tvCancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_cancelar"
+            android:textColor="@color/paleta1"
+            android:textSize="18sp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/comfortaa_regular"
+            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
+            android:clickable="true"/>
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tvTituloU"
@@ -47,9 +80,12 @@
 
     <LinearLayout
         android:id="@+id/llFormulario"
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTituloU">
@@ -65,7 +101,6 @@
             android:textColor="@color/paleta1"
             android:gravity="center"
             android:textSize="19sp"
-            android:layout_marginTop="40dp"
             android:maxLines="1" />
 
         <EditText
@@ -119,36 +154,5 @@
             android:maxLines="1" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btnIniciar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="Registrar"
-        android:background="@drawable/boton_redondeado_blanco"
-        android:text="@string/btn_registrar"
-        android:textColor="@color/paleta3"
-        android:textSize="24sp"
-        android:fontFamily="@font/comfortaa_regular"
-        android:layout_marginTop="20dp"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivFondo"/>
-
-    <TextView
-        android:id="@+id/tvCancelar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tv_cancelar"
-        android:textColor="@color/paleta1"
-        android:textSize="18sp"
-        android:fontFamily="@font/comfortaa_regular"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnIniciar"
-        android:clickable="true"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
