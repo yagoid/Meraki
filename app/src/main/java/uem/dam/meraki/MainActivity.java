@@ -15,8 +15,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -71,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Iniciar(View view) {
-
+        // Validamos si los datos introducidos son correctos, y si es así se inicia sesión en con su respectivo rol
         String msj = validarDatos();
 
         if (msj != null) {
@@ -81,17 +85,45 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Intent i = new Intent(MainActivity.this, UsuarioActivity.class);
-                        startActivity(i);
+
+                        String id = fa.getCurrentUser().getUid();
+
+                        Query queryT = dr.child("Tiendas").child(id);
+                        Query queryU = dr.child("Usuarios").child(id);
+
+                        // Si los datos introducidos son de usuario se le lleva a la pantalla UsuarioActivity
+                        queryU.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    Intent i = new Intent(MainActivity.this, UsuarioActivity.class);
+                                    startActivity(i);
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
+                        });
+                        // Si los datos introducidos son de cliente se le lleva a la pantalla ClienteActivity
+                        queryT.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    Intent i = new Intent(MainActivity.this, RegTiendaActivity.class);
+                                    startActivity(i);
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
+                        });
+
                     } else {
-                        Toast.makeText(MainActivity.this, getString(R.string.msj_no_accede), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, getString(R.string.msj_error_iniciar_sesion), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
-
-        //Intent i = new Intent(MainActivity.this, UsuarioActivity.class);
-        //startActivity(i);
     }
 
     // Comprobamos que los datos introducidos no estén vacíos
@@ -116,9 +148,28 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         // Mantenemos abierta la sesión para no tener que rellenar los campos de login de nuevo
         if (fa.getCurrentUser() != null) {
-            Intent i = new Intent(MainActivity.this, UsuarioActivity.class);
-            startActivity(i);
-            finish();
+
+            String id = fa.getCurrentUser().getUid();
+            Query queryU = dr.child("Usuarios").child(id);
+
+            queryU.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Intent i = new Intent(MainActivity.this, UsuarioActivity.class);
+                        startActivity(i);
+                        finish();
+                    } else {
+                        Intent iT = new Intent(MainActivity.this, UsuarioActivity.class);
+                        startActivity(iT);
+                        finish();
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+
         }
     }
 

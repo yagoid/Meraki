@@ -58,101 +58,108 @@
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/comfortaa_regular"
             android:layout_centerInParent="true"
-            android:layout_alignParentBottom="true"
-            android:clickable="true"/>
+            android:layout_alignParentBottom="true"/>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="25dp"
+            android:layout_centerInParent="true"
+            android:layout_above="@+id/btnIniciar">
+
+
+            <LinearLayout
+                android:id="@+id/llFormulario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true">
+
+                <TextView
+                    android:id="@+id/tvTituloU"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/tv_titulo_u"
+                    android:gravity="center"
+                    android:textSize="40sp"
+                    android:textColor="@color/paleta1"
+                    android:fontFamily="@font/comic_sans" />
+
+                <EditText
+                    android:id="@+id/etNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/et_nombre"
+                    android:fontFamily="@font/comic_sans"
+                    android:backgroundTint="@color/paleta1"
+                    android:textColorHint="@color/paleta1"
+                    android:textColor="@color/paleta1"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:textSize="19sp"
+                    android:maxLines="1" />
+
+                <EditText
+                    android:id="@+id/etEmailU"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/et_correo"
+                    android:fontFamily="@font/comic_sans"
+                    android:backgroundTint="@color/paleta1"
+                    android:textColorHint="@color/paleta1"
+                    android:textColor="@color/paleta1"
+                    android:gravity="center"
+                    android:textSize="19sp"
+                    android:layout_marginTop="40dp"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1" />
+
+
+                <EditText
+                    android:id="@+id/etPasswordU"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/et_password"
+                    android:fontFamily="@font/comic_sans"
+                    android:backgroundTint="@color/paleta1"
+                    android:textColorHint="@color/paleta1"
+                    android:textColor="@color/paleta1"
+                    android:imeActionLabel="Custom"
+                    android:gravity="center"
+                    android:textSize="19sp"
+                    android:layout_marginTop="40dp"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+
+                <EditText
+                    android:id="@+id/etRepPasswordU"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/et_password_rep"
+                    android:fontFamily="@font/comic_sans"
+                    android:backgroundTint="@color/paleta1"
+                    android:textColorHint="@color/paleta1"
+                    android:textColor="@color/paleta1"
+                    android:imeActionLabel="Custom"
+                    android:gravity="center"
+                    android:textSize="19sp"
+                    android:layout_marginTop="40dp"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tvTituloU"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="@string/tv_titulo_u"
-        android:gravity="center"
-        android:textSize="40sp"
-        android:textColor="@color/paleta1"
-        android:fontFamily="@font/comic_sans"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-
-    <LinearLayout
-        android:id="@+id/llFormulario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTituloU">
-
-        <EditText
-            android:id="@+id/etNombre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/et_nombre"
-            android:fontFamily="@font/comic_sans"
-            android:backgroundTint="@color/paleta1"
-            android:textColorHint="@color/paleta1"
-            android:textColor="@color/paleta1"
-            android:gravity="center"
-            android:textSize="19sp"
-            android:maxLines="1" />
-
-        <EditText
-            android:id="@+id/etEmailU"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/et_correo"
-            android:fontFamily="@font/comic_sans"
-            android:backgroundTint="@color/paleta1"
-            android:textColorHint="@color/paleta1"
-            android:textColor="@color/paleta1"
-            android:gravity="center"
-            android:textSize="19sp"
-            android:layout_marginTop="40dp"
-            android:inputType="textEmailAddress"
-            android:maxLines="1" />
-
-
-        <EditText
-            android:id="@+id/etPasswordU"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/et_password"
-            android:fontFamily="@font/comic_sans"
-            android:backgroundTint="@color/paleta1"
-            android:textColorHint="@color/paleta1"
-            android:textColor="@color/paleta1"
-            android:imeActionLabel="Custom"
-            android:gravity="center"
-            android:textSize="19sp"
-            android:layout_marginTop="40dp"
-            android:imeOptions="actionUnspecified"
-            android:inputType="textPassword"
-            android:maxLines="1" />
-
-        <EditText
-            android:id="@+id/etRepPasswordU"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/et_password_rep"
-            android:fontFamily="@font/comic_sans"
-            android:backgroundTint="@color/paleta1"
-            android:textColorHint="@color/paleta1"
-            android:textColor="@color/paleta1"
-            android:imeActionLabel="Custom"
-            android:gravity="center"
-            android:textSize="19sp"
-            android:layout_marginTop="40dp"
-            android:imeOptions="actionUnspecified"
-            android:inputType="textPassword"
-            android:maxLines="1" />
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

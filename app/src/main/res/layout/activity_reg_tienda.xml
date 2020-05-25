@@ -58,136 +58,141 @@
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/comfortaa_regular"
             android:layout_centerInParent="true"
-            android:layout_alignParentBottom="true"
-            android:clickable="true"/>
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tvTituloT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/tv_titulo_t"
-        android:gravity="center"
-        android:textSize="40sp"
-        android:textColor="@color/paleta1"
-        android:fontFamily="@font/comic_sans"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_alignParentBottom="true"/>
 
 
-    <LinearLayout
-        android:id="@+id/llFormulario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTituloT">
-
-        <LinearLayout
-            android:id="@+id/llUbicacion"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_margin="25dp"
+            android:layout_centerInParent="true"
+            android:layout_above="@+id/btnIniciar">
 
-            <EditText
-                android:id="@+id/etUbicacion"
+            <LinearLayout
+                android:id="@+id/llFormulario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/et_ubicacion"
-                android:fontFamily="@font/comic_sans"
-                android:backgroundTint="@color/paleta1"
-                android:textColorHint="@color/paleta1"
-                android:textColor="@color/paleta1"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:enabled="false" />
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true">
 
-            <ImageView
-                android:id="@+id/ivUbicacion"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ubicacion" />
+                <TextView
+                    android:id="@+id/tvTituloT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_titulo_t"
+                    android:gravity="center"
+                    android:textSize="40sp"
+                    android:textColor="@color/paleta1"
+                    android:layout_gravity="center"
+                    android:layout_alignParentTop="true"
+                    android:fontFamily="@font/comic_sans"/>
 
-        </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llUbicacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/etEmailT"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/et_correo"
-            android:fontFamily="@font/comic_sans"
-            android:backgroundTint="@color/paleta1"
-            android:textColorHint="@color/paleta1"
-            android:textColor="@color/paleta1"
-            android:gravity="center"
-            android:layout_marginTop="15dp"
-            android:inputType="textEmailAddress"
-            android:maxLines="1" />
+                    <EditText
+                        android:id="@+id/etUbicacion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/et_ubicacion"
+                        android:fontFamily="@font/comic_sans"
+                        android:backgroundTint="@color/paleta1"
+                        android:textColorHint="@color/paleta1"
+                        android:textColor="@color/paleta1"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:enabled="false" />
 
-        <EditText
-            android:id="@+id/etNombreTienda"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/et_nombre_tienda"
-            android:fontFamily="@font/comic_sans"
-            android:backgroundTint="@color/paleta1"
-            android:textColorHint="@color/paleta1"
-            android:textColor="@color/paleta1"
-            android:gravity="center"
-            android:layout_marginTop="15dp"
-            android:maxLines="1" />
+                    <ImageView
+                        android:id="@+id/ivUbicacion"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ubicacion" />
 
-        <Spinner
-            android:id="@+id/spnTiendas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/comic_sans"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="5dp"
-            android:textAlignment="center"
-            android:backgroundTint="@color/paleta1"
-            android:background="@drawable/boton_redondeado_blanco"
-            android:gravity="center_horizontal" />
+                </LinearLayout>
 
-        <EditText
-            android:id="@+id/etPasswordT"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/et_password"
-            android:fontFamily="@font/comic_sans"
-            android:backgroundTint="@color/paleta1"
-            android:textColorHint="@color/paleta1"
-            android:textColor="@color/paleta1"
-            android:imeActionLabel="Custom"
-            android:gravity="center"
-            android:layout_marginTop="15dp"
-            android:imeOptions="actionUnspecified"
-            android:inputType="textPassword"
-            android:maxLines="1" />
+                <EditText
+                    android:id="@+id/etEmailT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/et_correo"
+                    android:fontFamily="@font/comic_sans"
+                    android:backgroundTint="@color/paleta1"
+                    android:textColorHint="@color/paleta1"
+                    android:textColor="@color/paleta1"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1" />
 
-        <EditText
-            android:id="@+id/etRepPasswordT"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/et_password_rep"
-            android:fontFamily="@font/comic_sans"
-            android:backgroundTint="@color/paleta1"
-            android:textColorHint="@color/paleta1"
-            android:textColor="@color/paleta1"
-            android:imeActionLabel="Custom"
-            android:gravity="center"
-            android:layout_marginTop="15dp"
-            android:imeOptions="actionUnspecified"
-            android:inputType="textPassword"
-            android:maxLines="1" />
+                <EditText
+                    android:id="@+id/etNombreTienda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/et_nombre_tienda"
+                    android:fontFamily="@font/comic_sans"
+                    android:backgroundTint="@color/paleta1"
+                    android:textColorHint="@color/paleta1"
+                    android:textColor="@color/paleta1"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:maxLines="1" />
 
-    </LinearLayout>
+                <Spinner
+                    android:id="@+id/spnTiendas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/comic_sans"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="5dp"
+                    android:textAlignment="center"
+                    android:backgroundTint="@color/paleta1"
+                    android:background="@drawable/boton_redondeado_blanco"
+                    android:gravity="center_horizontal" />
+
+                <EditText
+                    android:id="@+id/etPasswordT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/et_password"
+                    android:fontFamily="@font/comic_sans"
+                    android:backgroundTint="@color/paleta1"
+                    android:textColorHint="@color/paleta1"
+                    android:textColor="@color/paleta1"
+                    android:imeActionLabel="Custom"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+
+                <EditText
+                    android:id="@+id/etRepPasswordT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/et_password_rep"
+                    android:fontFamily="@font/comic_sans"
+                    android:backgroundTint="@color/paleta1"
+                    android:textColorHint="@color/paleta1"
+                    android:textColor="@color/paleta1"
+                    android:imeActionLabel="Custom"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

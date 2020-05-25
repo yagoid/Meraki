@@ -48,6 +48,7 @@
     <string name="pass_pocos_caracteres">La contraseña debe tener mas de cinco caracteres</string>
     <string name="error_insercion_datos">Error en la inserción de datos</string>
     <string name="et_nombre_tienda">Nombre de tienda</string>
+    <string name="msj_error_iniciar_sesion">Error la iniciar sesion, compruebe que los campos son correctos</string>
 
 
 </resources>
