@@ -1,5 +1,6 @@
 package uem.dam.meraki.fragments;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 
@@ -20,6 +21,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import uem.dam.meraki.CatalogoActivity;
 import uem.dam.meraki.R;
 import uem.dam.meraki.UsuarioActivity;
 import uem.dam.meraki.model.Tienda;
@@ -38,17 +41,21 @@ import uem.dam.meraki.model.Tienda;
  */
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
+    public static final String CLAVE_UID = "UID";
+
     private GoogleMap mGoogleMap;
     private MapView mMapView;
     private View mView;
     private TextView tvTiendaBuscadas;
+    Marker m;
 
     private DatabaseReference dr;
 
+    private String uid;
     private Double lat;
     private Double lon;
-    private LatLng newTienda;
     private String tienda;
+    private LatLng newTienda;
 
     public MapFragment() {
         // Required empty public constructor
@@ -116,6 +123,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Tienda t = snapshot.getValue(Tienda.class);
 
+                        uid = t.getUid();
                         String nombre = t.getNombre();
                         String tiendaElegida = t.getTienda();
                         Double latitud = t.getLatitud();
@@ -123,9 +131,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                         newTienda = new LatLng(latitud, longitud);
 
-                        mGoogleMap.addMarker(new MarkerOptions().position(newTienda).title(nombre)
+                        // Añadimos la marca donde haya una tienda
+                        m = mGoogleMap.addMarker(new MarkerOptions().position(newTienda).title(nombre)
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_logo))
                                 .snippet("Tienda de " + tiendaElegida));
+
+                        m.setTag(uid);
+
+                        // Si se pulsa en la información del marcador nos llevará a la pantalla de su catálogo
+                        mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                            @Override
+                            public void onInfoWindowClick(Marker marker) {
+                                String id = marker.getTag().toString();
+
+                                Intent i = new Intent(getActivity(), CatalogoActivity.class);
+                                //Toast.makeText(getContext(), uid , Toast.LENGTH_LONG).show();
+                                i.putExtra(CLAVE_UID, id);
+                                startActivity(i);
+                            }
+                        });
                     }
                 }
                 @Override
@@ -143,6 +167,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Tienda t = snapshot.getValue(Tienda.class);
 
+                        uid = t.getUid();
                         String nombre = t.getNombre();
                         String tiendaElegida = t.getTienda();
                         Double latitud = t.getLatitud();
@@ -150,14 +175,30 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                         newTienda = new LatLng(latitud, longitud);
 
-                        mGoogleMap.addMarker(new MarkerOptions().position(newTienda).title(nombre)
+                        // Añadimos la marca donde haya una tienda
+                        m = mGoogleMap.addMarker(new MarkerOptions().position(newTienda).title(nombre)
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_logo))
                                 .snippet("Tienda de " + tiendaElegida));
+
+                        m.setTag(uid);
+
+                        // Si se pulsa en la información del marcador nos llevará a la pantalla de su catálogo
+                        mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                            @Override
+                            public void onInfoWindowClick(Marker marker) {
+                                String id = marker.getTag().toString();
+
+                                Intent i = new Intent(getActivity(), CatalogoActivity.class);
+                                //Toast.makeText(getContext(), uid , Toast.LENGTH_LONG).show();
+                                i.putExtra(CLAVE_UID, id);
+                                startActivity(i);
+                            }
+                        });
                     }
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(getContext(), "Error en los datos" + lon, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Error en los datos", Toast.LENGTH_LONG).show();
                 }
             });
         }

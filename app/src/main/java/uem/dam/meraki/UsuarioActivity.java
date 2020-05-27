@@ -38,12 +38,11 @@ import uem.dam.meraki.fragments.ProfileFragment;
 
 public class UsuarioActivity extends AppCompatActivity {
 
-    private static final int MY_PERMISSIONS_REQUEST_ACCESS_LOCATION =123;
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_LOCATION = 123;
 
     public static final String LAT_KEY = "LAT";
     public static final String LON_KEY = "LON";
     public static final String CLAVE_TIENDA = "Tienda";
-    public static final String CLAVE_UID = "UID";
     public static final String CLAVE_EMAIL = "Email";
     public static final String CLAVE_NOMBRE = "Nombre";
 
