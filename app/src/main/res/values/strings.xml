@@ -50,6 +50,7 @@
     <string name="et_nombre_tienda">Nombre de tienda</string>
     <string name="msj_error_iniciar_sesion">Error la iniciar sesion, compruebe que los campos son correctos</string>
     <string name="tv_catalogo">CATÁLOGO</string>
+    <string name="tv_editar_catalogo">EDITAR CATÁLOGO</string>
 
 
 </resources>

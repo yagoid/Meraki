@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CatalogoActivity"></activity>
+        <activity android:name=".TiendaActivity"></activity>
+        <activity android:name=".CatalogoActivity" />
         <activity android:name=".MapaActivity" />
         <activity android:name=".UsuarioActivity" />
         <activity android:name=".RegUsuarioActivity" />

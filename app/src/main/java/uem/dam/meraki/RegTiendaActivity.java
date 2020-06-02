@@ -179,7 +179,7 @@ public class RegTiendaActivity extends AppCompatActivity implements AdapterView.
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task2) {
                                         if (task2.isSuccessful()) {
-                                            Intent i = new Intent(RegTiendaActivity.this, RolActivity.class);
+                                            Intent i = new Intent(RegTiendaActivity.this, TiendaActivity.class);
                                             startActivity(i);
                                             finish();
                                         } else {

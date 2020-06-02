@@ -81,11 +81,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             tienda = getArguments().getString(UsuarioActivity.CLAVE_TIENDA);
         }
 
+        // Agragamos al textView las tiendas que se están buscando actualmente
         if (!tienda.equals("Todas")) {
             tvTiendaBuscadas.setText("Tiendas de " + tienda);
+        } else {
+            tvTiendaBuscadas.setText("Todas las tiendas");
         }
-
-        Toast.makeText(getContext(), tienda, Toast.LENGTH_LONG).show();
 
         return  mView;
     }
@@ -133,7 +134,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                         // Añadimos la marca donde haya una tienda
                         m = mGoogleMap.addMarker(new MarkerOptions().position(newTienda).title(nombre)
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_logo))
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.logo_ic))
                                 .snippet("Tienda de " + tiendaElegida));
 
                         m.setTag(uid);
@@ -145,7 +146,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                 String id = marker.getTag().toString();
 
                                 Intent i = new Intent(getActivity(), CatalogoActivity.class);
-                                //Toast.makeText(getContext(), uid , Toast.LENGTH_LONG).show();
                                 i.putExtra(CLAVE_UID, id);
                                 startActivity(i);
                             }
@@ -159,7 +159,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             });
 
         } else {
-            /* Buscamos en la base de datos las latitudes y longitudes ed las tiendas filtradas por tipo de tienda para añadir un marcador en el mapa  */
+            /* Buscamos en la base de datos las latitudes y longitudes de las tiendas filtradas por tipo de tienda para añadir un marcador en el mapa  */
             Query query = dr.child("Tiendas").orderByChild("tienda").equalTo(tienda);
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -189,7 +189,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                 String id = marker.getTag().toString();
 
                                 Intent i = new Intent(getActivity(), CatalogoActivity.class);
-                                //Toast.makeText(getContext(), uid , Toast.LENGTH_LONG).show();
                                 i.putExtra(CLAVE_UID, id);
                                 startActivity(i);
                             }

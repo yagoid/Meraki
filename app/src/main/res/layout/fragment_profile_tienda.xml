@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.ProfileTiendaFragment"
+    android:background="@color/paleta6">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/backgroundImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/degradado"
+            android:alpha="0.6"/>
+
+        <TextView
+            android:id="@+id/tvMisDatos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/tv_mis_datos"
+            android:textSize="40dp"
+            android:textAllCaps="true"
+            android:fontFamily="@font/comic_sans"
+            android:textColor="@color/paleta2"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:id="@+id/llFormulario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvMisDatos"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/et_nombre_tienda"
+                android:textSize="18dp"
+                android:fontFamily="@font/comfortaa_regular"
+                android:textColor="@color/paleta3"/>
+
+            <EditText
+                android:id="@+id/etNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comic_sans"
+                android:backgroundTint="@color/paleta1"
+                android:textColorHint="@color/paleta1"
+                android:textColor="@color/paleta1"
+                android:gravity="center"
+                android:textSize="17dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/et_correo"
+                android:textSize="18dp"
+                android:fontFamily="@font/comfortaa_regular"
+                android:textColor="@color/paleta3"/>
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comic_sans"
+                android:backgroundTint="@color/paleta1"
+                android:textColorHint="@color/paleta1"
+                android:textColor="@color/paleta1"
+                android:gravity="center"
+                android:textSize="17dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:inputType="textEmailAddress"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/tvUbicacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/et_ubicacion"
+                android:layout_marginTop="15dp"
+                android:textSize="18dp"
+                android:fontFamily="@font/comfortaa_regular"
+                android:textColor="@color/paleta3"/>
+
+            <EditText
+                android:id="@+id/etUbicacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comic_sans"
+                android:backgroundTint="@color/paleta1"
+                android:textColorHint="@color/paleta1"
+                android:textColor="@color/paleta1"
+                android:gravity="center"
+                android:textSize="17dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:maxLines="1" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

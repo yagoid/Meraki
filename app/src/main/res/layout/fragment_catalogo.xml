@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.CatalogoFragment"
+    android:background="@color/paleta5">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/backgroundImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/degradad2"
+            android:alpha="0.63"/>
+
+        <TextView
+            android:id="@+id/tvNombreTienda"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:fontFamily="@font/comic_sans"
+            android:textColor="@color/paleta1"
+            android:textSize="26sp"/>
+
+        <TextView
+            android:id="@+id/tvTipoTienda"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:fontFamily="@font/comic_sans"
+            android:textColor="@color/paleta1"
+            android:layout_below="@+id/tvNombreTienda"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/tvCatalogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:fontFamily="@font/comic_sans"
+            android:textColor="@color/paleta2"
+            android:layout_below="@+id/tvTipoTienda"
+            android:text="@string/tv_catalogo"
+            android:textSize="28sp"/>
+
+    </RelativeLayout>
+
+</FrameLayout>

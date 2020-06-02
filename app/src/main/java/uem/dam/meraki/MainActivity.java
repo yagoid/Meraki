@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
-                                    Intent i = new Intent(MainActivity.this, RegTiendaActivity.class);
+                                    Intent i = new Intent(MainActivity.this, TiendaActivity.class);
                                     startActivity(i);
                                 }
                             }
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(i);
                         finish();
                     } else {
-                        Intent iT = new Intent(MainActivity.this, UsuarioActivity.class);
+                        Intent iT = new Intent(MainActivity.this, TiendaActivity.class);
                         startActivity(iT);
                         finish();
                     }
