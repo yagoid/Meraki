@@ -29,6 +29,96 @@
             android:text="@string/tv_editar_catalogo"
             android:textSize="28sp"/>
 
+        <LinearLayout
+            android:id="@+id/llAñadirProducto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvCatalogo"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etProducto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/et_producto"
+                android:textColorHint="@color/paleta1"
+                android:textColor="@color/paleta1"
+                android:backgroundTint="@color/paleta1"
+                android:inputType="textCapWords"
+                android:gravity="center"
+                android:fontFamily="@font/comic_sans"/>
+
+            <EditText
+                android:id="@+id/etPrecio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/et_precio"
+                android:layout_marginTop="10dp"
+                android:textColorHint="@color/paleta1"
+                android:textColor="@color/paleta1"
+                android:backgroundTint="@color/paleta1"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                android:fontFamily="@font/comic_sans"/>
+
+            <Button
+                android:id="@+id/btnAgregar"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/btn_agregar"
+                android:textColor="@color/paleta1"
+                android:textSize="18sp"
+                android:fontFamily="@font/comfortaa_regular"
+                android:background="@drawable/boton_redondeado_rojo"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/lvListaProductos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/paleta1"
+            android:background="@drawable/borde_redondeado"
+            android:layout_below="@+id/llAñadirProducto"
+            android:layout_above="@+id/llBotones"/>
+
+        <LinearLayout
+            android:id="@+id/llBotones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnEliminar"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/btn_eliminar"
+                android:textColor="@color/paleta3"
+                android:textSize="18sp"
+                android:fontFamily="@font/comfortaa_regular"
+                android:background="@drawable/boton_redondeado_blanco"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:layout_marginRight="5dp"
+                android:enabled="false"/>
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 </FrameLayout>

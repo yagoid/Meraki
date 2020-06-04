@@ -57,7 +57,8 @@
             android:textSize="17dp"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:enabled="false"/>
 
         <TextView
             android:id="@+id/tvEmail"
@@ -82,34 +83,8 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
             android:inputType="textEmailAddress"
-            android:maxLines="1" />
-
-        <TextView
-            android:id="@+id/tvPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/et_password"
-            android:textSize="18dp"
-            android:fontFamily="@font/comfortaa_regular"
-            android:textColor="@color/paleta3"/>
-
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/comic_sans"
-            android:backgroundTint="@color/paleta1"
-            android:textColorHint="@color/paleta1"
-            android:textColor="@color/paleta1"
-            android:imeActionLabel="Custom"
-            android:gravity="center"
-            android:textSize="17dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="20dp"
-            android:imeOptions="actionUnspecified"
-            android:inputType="textPassword"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:enabled="false"/>
 
     </LinearLayout>
 

@@ -49,8 +49,12 @@
     <string name="error_insercion_datos">Error en la inserción de datos</string>
     <string name="et_nombre_tienda">Nombre de tienda</string>
     <string name="msj_error_iniciar_sesion">Error la iniciar sesion, compruebe que los campos son correctos</string>
-    <string name="tv_catalogo">CATÁLOGO</string>
+    <string name="tv_catalogo">INVENTARIO</string>
     <string name="tv_editar_catalogo">EDITAR CATÁLOGO</string>
+    <string name="et_producto">Producto</string>
+    <string name="et_precio">Precio</string>
+    <string name="btn_eliminar">Eliminar</string>
+    <string name="btn_agregar">Añadir producto</string>
 
 
 </resources>

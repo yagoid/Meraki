@@ -154,7 +154,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(getContext(), "Error en los datos" + lon, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Error en los datos", Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -177,7 +177,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                         // Añadimos la marca donde haya una tienda
                         m = mGoogleMap.addMarker(new MarkerOptions().position(newTienda).title(nombre)
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_logo))
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.logo_ic))
                                 .snippet("Tienda de " + tiendaElegida));
 
                         m.setTag(uid);

@@ -62,7 +62,8 @@
                 android:textSize="17dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="20dp"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:enabled="false"/>
 
             <TextView
                 android:id="@+id/tvEmail"
@@ -87,7 +88,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="20dp"
                 android:inputType="textEmailAddress"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:enabled="false"/>
 
             <TextView
                 android:id="@+id/tvUbicacion"
@@ -111,7 +113,8 @@
                 android:textSize="17dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="20dp"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:enabled="false"/>
 
         </LinearLayout>
 

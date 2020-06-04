@@ -3,6 +3,7 @@ package uem.dam.meraki;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -14,17 +15,29 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import uem.dam.meraki.fragments.CatalogoFragment;
 import uem.dam.meraki.fragments.EditarFragment;
 import uem.dam.meraki.fragments.ProfileTiendaFragment;
+import uem.dam.meraki.model.Tienda;
 
 public class TiendaActivity extends AppCompatActivity {
 
+    public static final String CLAVE_UID = "uid";
+
     private FirebaseAuth fa;
     private DatabaseReference dr;
+
+    private FragmentManager fm;
+    private FragmentTransaction ft;
+
+    private String uid;
+    private String id;
 
     BottomNavigationView mBottomNavigation;
 
@@ -57,6 +70,24 @@ public class TiendaActivity extends AppCompatActivity {
                 if (menuItem.getItemId() == R.id.menu_editar) {
                     // Abrimos el EditarFragment
                     showSelectedFragment(new EditarFragment());
+
+                    /*fm = getSupportFragmentManager();
+                    ft = fm.beginTransaction();
+
+                    EditarFragment editarFragment = new EditarFragment();
+
+                    // Guardamos el nombre en CLAVE_NOMBRE para mandarlos al fragment
+                    //Bundle bundle = new Bundle();
+                    //bundle.putString(CLAVE_UID, id);
+
+                    // Pasamos el nombre recojida con anterioridad a HomeFragment
+                    //editarFragment.setArguments(bundle);
+
+
+                    // Abrimos el mapsFragment
+                    ft.add(R.id.container, editarFragment);
+                    ft.commit();*/
+
                 }
 
                 if (menuItem.getItemId() == R.id.menu_perfil) {
@@ -68,6 +99,22 @@ public class TiendaActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    // Recogemos la información del usuario logado de la base de datos
+    private void getInfoUser() {
+        String uid = fa.getCurrentUser().getUid();
+        dr.child("Tiendas").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    id = dataSnapshot.child("uid").getValue().toString();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
     private void InicializarFirebase() {

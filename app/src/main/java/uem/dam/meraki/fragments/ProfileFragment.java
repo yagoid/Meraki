@@ -17,7 +17,6 @@ import uem.dam.meraki.UsuarioActivity;
  */
 public class ProfileFragment extends Fragment {
 
-
     View view;
     EditText etNombre;
     EditText etCorreo;
@@ -49,7 +48,6 @@ public class ProfileFragment extends Fragment {
 
         etNombre.setHint(nombre);
         etCorreo.setHint(email);
-        etPassword.setHint("8caracteres");
 
         return view;
     }

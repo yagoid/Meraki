@@ -32,7 +32,7 @@
             android:id="@+id/tvTipoTienda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:fontFamily="@font/comic_sans"
             android:textColor="@color/paleta1"
@@ -43,13 +43,25 @@
             android:id="@+id/tvCatalogo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:fontFamily="@font/comic_sans"
             android:textColor="@color/paleta2"
             android:layout_below="@+id/tvTipoTienda"
             android:text="@string/tv_catalogo"
             android:textSize="28sp"/>
+
+        <ListView
+            android:id="@+id/lvListaCatalogo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/paleta2"
+            android:background="@drawable/borde_redondeado"
+            android:layout_below="@+id/tvCatalogo"/>
 
     </RelativeLayout>
 
