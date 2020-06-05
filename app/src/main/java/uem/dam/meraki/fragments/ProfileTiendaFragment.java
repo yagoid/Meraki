@@ -56,7 +56,9 @@ public class ProfileTiendaFragment extends Fragment {
         inicializarFirebase();
 
         // Recogemos el id de la tienda logada
-        id = fa.getCurrentUser().getUid();
+        if (fa.getCurrentUser() != null) {
+            id = fa.getCurrentUser().getUid();
+        }
 
         // Recogemos información de la tienda
         getInfoTien();
@@ -77,7 +79,7 @@ public class ProfileTiendaFragment extends Fragment {
 
                     etNombre.setHint(nombre);
                     etCorreo.setHint(email);
-                    etUbicacion.setHint(latitud + ", " + longitud);
+                    etUbicacion.setHint("Lat: " + latitud + ", \n" + "Long: " + longitud);
                 }
             }
             @Override

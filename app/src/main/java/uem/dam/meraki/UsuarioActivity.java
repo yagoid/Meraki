@@ -74,46 +74,51 @@ public class UsuarioActivity extends AppCompatActivity {
         // Inicializamos la firebase
         InicializarFirebase();
 
-        // Recogemos información del usuario
-        getInfoUser();
+        // Si existe un usuario logueado se sigue adelante con el programa
+        if (fa.getCurrentUser() != null) {
 
-        // Pedimos los permisos de ubicación
-        pedirPermisos();
+            // Recogemos información del usuario
+            getInfoUser();
 
-        // Cuando se habra UsuarioActivity veremos primero el fragment HomeFragment
-        abrirHomeFragment();
+            // Pedimos los permisos de ubicación
+            pedirPermisos();
 
-        // Método para cambiar los colores del bottom navigation view
-        changeColor();
+            // Cuando se habra UsuarioActivity veremos primero el fragment HomeFragment
+            abrirHomeFragment();
 
-        // Controlamos cuando se pulsa el bottomNavigation para mostrar su correspondiente fragment
-        mBottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            // Método para cambiar los colores del bottom navigation view
+            changeColor();
 
-                if (menuItem.getItemId() == R.id.menu_home) {
-                    // Abrimos el HomeFragment
-                    abrirHomeFragment();
+            // Controlamos cuando se pulsa el bottomNavigation para mostrar su correspondiente fragment
+            mBottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                    // Recibimos los datos del spinner mandados del HomeFragment
-                    tienda = tvTienda.getText().toString().trim();
+                    if (menuItem.getItemId() == R.id.menu_home) {
+                        // Abrimos el HomeFragment
+                        abrirHomeFragment();
+
+                        // Recibimos los datos del spinner mandados del HomeFragment
+                        tienda = tvTienda.getText().toString().trim();
+                    }
+
+                    if (menuItem.getItemId() == R.id.menu_maps) {
+                        // Recibimos los datos del spinner mandados del HomeFragment
+                        tienda = tvTienda.getText().toString().trim();
+                        // Abrimos el MapFragment
+                        abrirMapFragment();
+                    }
+
+                    if (menuItem.getItemId() == R.id.menu_profile) {
+                        // Abrimos el ProfileFragment
+                        abrirProfileFragment();
+                    }
+
+                    return true;
                 }
+            });
 
-                if (menuItem.getItemId() == R.id.menu_maps) {
-                    // Recibimos los datos del spinner mandados del HomeFragment
-                    tienda = tvTienda.getText().toString().trim();
-                    // Abrimos el MapFragment
-                    abrirMapFragment();
-                }
-
-                if (menuItem.getItemId() == R.id.menu_profile) {
-                    // Abrimos el ProfileFragment
-                    abrirProfileFragment();
-                }
-
-                return true;
-            }
-        });
+        }
 
     }
 

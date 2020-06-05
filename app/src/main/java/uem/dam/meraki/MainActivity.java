@@ -85,32 +85,24 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-
+                        // Recojemos el id del usuario logado
                         String id = fa.getCurrentUser().getUid();
 
-                        Query queryT = dr.child("Tiendas").child(id);
                         Query queryU = dr.child("Usuarios").child(id);
 
-                        // Si los datos introducidos son de usuario se le lleva a la pantalla UsuarioActivity
                         queryU.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                // Si los datos introducidos son de usuario, se le lleva a la pantalla UsuarioActivity
                                 if (dataSnapshot.exists()) {
                                     Intent i = new Intent(MainActivity.this, UsuarioActivity.class);
                                     startActivity(i);
-                                }
-                            }
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                            }
-                        });
-                        // Si los datos introducidos son de cliente se le lleva a la pantalla ClienteActivity
-                        queryT.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.exists()) {
-                                    Intent i = new Intent(MainActivity.this, TiendaActivity.class);
-                                    startActivity(i);
+                                    finish();
+                                } else {
+                                    // Si por el contrario, los datos introducidos son de cliente, se le lleva a la pantalla ClienteActivity
+                                    Intent iT = new Intent(MainActivity.this, TiendaActivity.class);
+                                    startActivity(iT);
+                                    finish();
                                 }
                             }
                             @Override
@@ -167,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(MainActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
                 }
             });
 

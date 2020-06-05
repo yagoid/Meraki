@@ -34,7 +34,7 @@ import uem.dam.meraki.model.Tienda;
 public class CatalogoFragment extends Fragment {
 
     private List<Producto> listaCatalogo = new ArrayList<Producto>();
-    ArrayAdapter<Producto> arrayAdapterCatalogo;
+    ArrayAdapter<Producto> arrayAdapterInventario;
 
     private FirebaseAuth fa;
     private DatabaseReference dr;
@@ -65,14 +65,18 @@ public class CatalogoFragment extends Fragment {
         // Inicializamos la firebase
         inicializarFirebase();
 
-        // Recogemos el id de la tienda logada
-        id = fa.getCurrentUser().getUid();
+        // Si existe una tienda logueada se sigue adelante con el programa
+        if (fa.getCurrentUser() != null) {
 
-        // Recojemos los datos de la tiedna logada
-        getInfoTienda();
+            // Recogemos el id de la tienda logada
+            id = fa.getCurrentUser().getUid();
 
-        // Añadimos los productos existentes a la lista
-        listarDatos();
+            // Recojemos los datos de la tiedna logada
+            getInfoTienda();
+
+            // Añadimos los productos existentes a la lista
+            listarDatos();
+        }
 
         return view;
     }
@@ -87,13 +91,16 @@ public class CatalogoFragment extends Fragment {
                     Producto p = objSnaptshot.getValue(Producto.class);
                     listaCatalogo.add(p);
 
-                    arrayAdapterCatalogo = new ArrayAdapter<Producto>(getContext(), android.R.layout.simple_list_item_1, listaCatalogo);
-                    lvListaCatalogo.setAdapter(arrayAdapterCatalogo);
+                    if (getActivity() != null) {
+                        arrayAdapterInventario = new ArrayAdapter<Producto>(getActivity(), android.R.layout.simple_list_item_1, listaCatalogo);
+                        lvListaCatalogo.setAdapter(arrayAdapterInventario);
+                    }
+
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getContext(), "Error en los datos", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Error en listar los datos", Toast.LENGTH_LONG).show();
             }
         });
     }

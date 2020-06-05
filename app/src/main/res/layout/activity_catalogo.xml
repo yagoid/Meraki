@@ -56,7 +56,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="40dp"
-        android:backgroundTint="@color/paleta7"
+        android:backgroundTint="@color/paleta2"
         android:background="@drawable/formulario_redondeado"
         android:layout_below="@+id/tvCatalogo"/>
 

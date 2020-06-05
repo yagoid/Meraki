@@ -1,6 +1,5 @@
 package uem.dam.meraki.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -33,11 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import uem.dam.meraki.MainActivity;
 import uem.dam.meraki.R;
-import uem.dam.meraki.RegUsuarioActivity;
-import uem.dam.meraki.TiendaActivity;
-import uem.dam.meraki.UsuarioActivity;
 import uem.dam.meraki.model.Producto;
 
 /**
@@ -52,7 +47,6 @@ public class EditarFragment extends Fragment {
     private DatabaseReference dr;
 
     View view;
-
     EditText etProducto;
     EditText etPrecio;
     Button btnAgregar;
@@ -84,84 +78,91 @@ public class EditarFragment extends Fragment {
         // Inicializamos la firebase
         inicializarFirebase();
 
-        // Recibimos el nombre del usuario logado y lo escribimos en tvSaludo
-        /*if (getArguments() != null) {
-            id = getArguments().getString(TiendaActivity.CLAVE_UID);
-        }*/
+        // Si existe una tienda logueada se sigue adelante con el programa
+        if (fa.getCurrentUser() != null) {
 
-        // Recogemos el id de la tienda logada
-        id = fa.getCurrentUser().getUid();
+            // Recogemos el id de la tienda logada
+            id = fa.getCurrentUser().getUid();
 
-        // Añadimos los productos existentes a la lista
-        listarDatos();
+            // Añadimos los productos existentes a la lista
+            listarDatos();
 
-        // Hacemos que el botón sea clickable
-        btnAgregar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Registramos al producto en firebase
-                String msj = validarDatos();
+            // Hacemos que el botón sea clickable
+            btnAgregar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Registramos al producto en firebase
+                    String msj = validarDatos();
 
-                if (msj != null) {
-                    Toast.makeText(getContext(), msj, Toast.LENGTH_LONG).show();
+                    if (msj != null) {
+                        Toast.makeText(getContext(), msj, Toast.LENGTH_LONG).show();
 
-                } else {
-                    // Añadimos los productos que se hayan rellenado a la firebase
-                    Map<String, Object> insertarProducto = new HashMap<>();
-                    insertarProducto.put("producto", producto);
-                    insertarProducto.put("precio", precio);
+                    } else {
+                        // Añadimos el producto que se haya rellenado a la firebase
+                        Map<String, Object> insertarProducto = new HashMap<>();
+                        insertarProducto.put("producto", producto);
+                        insertarProducto.put("precio", precio);
 
-                    dr.child("Tiendas").child(id).child("catalogo").child(producto).updateChildren(insertarProducto).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(getContext(), "Producto añadido", Toast.LENGTH_LONG).show();
-                        }
-                    });
+                        dr.child("Tiendas").child(id).child("catalogo").child(producto).updateChildren(insertarProducto).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getActivity(), "Producto añadido", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getActivity(), getString(R.string.error_insercion_datos), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
 
-                    // Limpiamos los EditText
-                    etProducto.setText("");
-                    etPrecio.setText("");
+                        // Limpiamos los EditText
+                        etProducto.setText("");
+                        etPrecio.setText("");
+                    }
                 }
-            }
-        });
+            });
 
-        // Cuando se pulse un producto de la lista se rellenarán los campos de producto y precio con sus datos
-        lvListaProductos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                productoSelecionado = (Producto) parent.getItemAtPosition(position);
-                etProducto.setText(productoSelecionado.getProducto());
-                etPrecio.setText(String.valueOf(productoSelecionado.getPrecio()));
+            // Cuando se pulse un producto de la lista se rellenarán los campos de producto y precio con sus datos
+            lvListaProductos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    productoSelecionado = (Producto) parent.getItemAtPosition(position);
+                    etProducto.setText(productoSelecionado.getProducto());
+                    etPrecio.setText(String.valueOf(productoSelecionado.getPrecio()));
 
-                btnEliminar.setEnabled(true);
-            }
-        });
+                    btnEliminar.setEnabled(true);
+                }
+            });
 
-        // Cuando se pulse "Eliminar" eliminamos el producto seleccionado
-        btnEliminar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Producto p = new Producto();
-                p.setProducto(productoSelecionado.getProducto());
-                dr.child("Tiendas").child(id).child("catalogo").child(p.getProducto()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(getContext(), "Eliminado", Toast.LENGTH_LONG).show();
+            // Cuando se pulse "Eliminar" eliminamos el producto seleccionado
+            btnEliminar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (etProducto.getText().toString().length() != 0 && etPrecio.getText().toString().length() != 0) {
+                        Producto p = new Producto();
+                        p.setProducto(productoSelecionado.getProducto());
+
+                        dr.child("Tiendas").child(id).child("catalogo").child(p.getProducto()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getContext(), "Eliminado", Toast.LENGTH_LONG).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+                        // Limpiamos los EditText
+                        etProducto.setText("");
+                        etPrecio.setText("");
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
-                    }
-                });
 
-                // Limpiamos los EditText
-                etProducto.setText("");
-                etPrecio.setText("");
-
-                btnEliminar.setEnabled(false);
-            }
-        });
+                    btnEliminar.setEnabled(false);
+                }
+            });
+        }
 
         return view;
     }
@@ -175,24 +176,27 @@ public class EditarFragment extends Fragment {
     }
 
     private void listarDatos() {
-        String id = fa.getCurrentUser().getUid();
-
         Query query = dr.child("Tiendas").child(id).child("catalogo");
-
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                listaProductos.clear();
-                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    Producto p = objSnaptshot.getValue(Producto.class);
-                    listaProductos.add(p);
+                if (dataSnapshot.exists()) {
+                    listaProductos.clear();
 
-                    arrayAdapterProducto = new ArrayAdapter<Producto>(getContext(), android.R.layout.simple_list_item_1, listaProductos);
-                    lvListaProductos.setAdapter(arrayAdapterProducto);
+                    for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
+                        Producto p = objSnaptshot.getValue(Producto.class);
+                        listaProductos.add(p);
+
+                        if (getActivity() != null) {
+                            arrayAdapterProducto = new ArrayAdapter<Producto>(getActivity(), android.R.layout.simple_list_item_1, listaProductos);
+                            lvListaProductos.setAdapter(arrayAdapterProducto);
+                        }
+                    }
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getActivity(), "Error en listar los datos", Toast.LENGTH_LONG).show();
             }
         });
     }
