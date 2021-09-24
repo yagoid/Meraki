@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_rv"
+    android:layout_marginTop="3dp">
+
+    <TextView
+        android:id="@+id/tvNombreT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="23sp"
+        android:textColor="@color/paleta1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/comic_sans"
+        android:text="Tienda" />
+
+    <TextView
+        android:id="@+id/tvTipoT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvNombreT"
+        android:textSize="17sp"
+        android:textColor="@color/paleta1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/comic_sans"
+        android:text="Tienda de Comida"/>
+
+    <TextView
+        android:id="@+id/tvTelefonoT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:textColor="@color/paleta1"
+        android:gravity="right"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/comic_sans"
+        android:text="666555444"/>
+
+    <TextView
+        android:id="@+id/tvDireccionT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTelefonoT"
+        android:textSize="17sp"
+        android:textColor="@color/paleta1"
+        android:layout_marginRight="10dp"
+        android:gravity="right"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/comic_sans"
+        android:text="Calle Duero, 65"/>
+
+</RelativeLayout>

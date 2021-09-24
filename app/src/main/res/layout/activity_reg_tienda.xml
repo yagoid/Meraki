@@ -129,6 +129,7 @@
                     android:textColor="@color/paleta1"
                     android:gravity="center"
                     android:layout_marginTop="15dp"
+                    android:imeOptions="actionUnspecified"
                     android:inputType="textEmailAddress"
                     android:maxLines="1" />
 
@@ -142,6 +143,7 @@
                     android:textColorHint="@color/paleta1"
                     android:textColor="@color/paleta1"
                     android:gravity="center"
+                    android:imeOptions="actionUnspecified"
                     android:inputType="textCapWords"
                     android:layout_marginTop="15dp"
                     android:maxLines="1" />

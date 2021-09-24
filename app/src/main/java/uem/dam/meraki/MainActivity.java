@@ -22,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import uem.dam.meraki.popups.PopupRegistrar;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference dr;
 
     TextView tvRegistrarse;
+    TextView tvInvitado;
     EditText etPassword;
     EditText etEmail;
 
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         tvRegistrarse = findViewById(R.id.tvRegistrarse);
+        tvInvitado = findViewById(R.id.tvInvitado);
         etPassword = findViewById(R.id.etPassword);
         etEmail = findViewById(R.id.etEmail);
 
@@ -53,7 +57,16 @@ public class MainActivity extends AppCompatActivity {
         tvRegistrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, RolActivity.class);
+                Intent i = new Intent(MainActivity.this, PopupRegistrar.class);
+                startActivity(i);
+            }
+        });
+
+        // Hacemos que el textView sea clickable
+        tvInvitado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, UsuarioActivity.class);
                 startActivity(i);
             }
         });
@@ -85,12 +98,13 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        // Recojemos el id del usuario logado
+
+                        // Recogemos el id del usuario logado
                         String id = fa.getCurrentUser().getUid();
 
-                        Query queryU = dr.child("Usuarios").child(id);
+                        Query queryU = dr.child("Usuarios").orderByChild("uid").equalTo(id);
 
-                        queryU.addValueEventListener(new ValueEventListener() {
+                        queryU.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 // Si los datos introducidos son de usuario, se le lleva a la pantalla UsuarioActivity
@@ -99,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                                     startActivity(i);
                                     finish();
                                 } else {
-                                    // Si por el contrario, los datos introducidos son de cliente, se le lleva a la pantalla ClienteActivity
+                                    // Si por el contrario, los datos introducidos son de tienda, se le lleva a la pantalla TiendaActivity
                                     Intent iT = new Intent(MainActivity.this, TiendaActivity.class);
                                     startActivity(iT);
                                     finish();
@@ -142,19 +156,19 @@ public class MainActivity extends AppCompatActivity {
         if (fa.getCurrentUser() != null) {
 
             String id = fa.getCurrentUser().getUid();
-            Query queryU = dr.child("Usuarios").child(id);
+            Query queryU = dr.child("Usuarios").orderByChild("uid").equalTo(id);
 
-            queryU.addValueEventListener(new ValueEventListener() {
+            queryU.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        Intent i = new Intent(MainActivity.this, UsuarioActivity.class);
-                        startActivity(i);
-                        finish();
+                            Intent i = new Intent(MainActivity.this, UsuarioActivity.class);
+                            startActivity(i);
+                            finish();
                     } else {
-                        Intent iT = new Intent(MainActivity.this, TiendaActivity.class);
-                        startActivity(iT);
-                        finish();
+                            Intent iT = new Intent(MainActivity.this, TiendaActivity.class);
+                            startActivity(iT);
+                            finish();
                     }
                 }
                 @Override

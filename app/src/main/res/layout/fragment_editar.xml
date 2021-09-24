@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.EditarFragment"
-    android:background="@color/paleta5">
+    android:background="@color/paleta1">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -15,17 +15,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@drawable/degradad2"
-            android:alpha="0.63"/>
+            android:src="@drawable/degradado"
+            android:alpha="0.3"/>
 
         <TextView
             android:id="@+id/tvCatalogo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
-            android:fontFamily="@font/comic_sans"
-            android:textColor="@color/paleta2"
+            android:fontFamily="@font/comfortaa_regular"
+            android:textColor="@color/paleta6"
             android:text="@string/tv_editar_catalogo"
             android:textSize="28sp"/>
 
@@ -44,9 +44,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/et_producto"
-                android:textColorHint="@color/paleta1"
-                android:textColor="@color/paleta1"
-                android:backgroundTint="@color/paleta1"
+                android:textColorHint="@color/paleta4"
+                android:textColor="@color/paleta4"
+                android:backgroundTint="@color/paleta4"
+                android:imeOptions="actionUnspecified"
                 android:inputType="textCapWords"
                 android:gravity="center"
                 android:fontFamily="@font/comic_sans"/>
@@ -57,10 +58,11 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/et_precio"
                 android:layout_marginTop="10dp"
-                android:textColorHint="@color/paleta1"
-                android:textColor="@color/paleta1"
-                android:backgroundTint="@color/paleta1"
+                android:textColorHint="@color/paleta4"
+                android:textColor="@color/paleta4"
+                android:backgroundTint="@color/paleta4"
                 android:gravity="center"
+                android:imeOptions="actionUnspecified"
                 android:inputType="numberDecimal"
                 android:fontFamily="@font/comic_sans"/>
 

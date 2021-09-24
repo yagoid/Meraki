@@ -188,10 +188,10 @@ public class RegTiendaActivity extends AppCompatActivity implements AdapterView.
                                     }
                                 });
 
-                                Toast.makeText(RegTiendaActivity.this, getString(R.string.msj_registrado), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegTiendaActivity.this, getString(R.string.msj_tienda_registrada), Toast.LENGTH_SHORT).show();
 
                             } else {
-                                Toast.makeText(RegTiendaActivity.this, getString(R.string.msj_no_registrado), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegTiendaActivity.this, getString(R.string.msj_tienda_no_registrada), Toast.LENGTH_SHORT).show();
                             }
                         }
             });

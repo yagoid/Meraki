@@ -4,19 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.HomeFragment"
-    android:background="@color/paleta3">
+    android:background="@color/paleta1">
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/degradado"
+        android:alpha="0.1" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp">
 
         <ImageView
-            android:id="@+id/backgroundImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@drawable/degradado"
-            android:alpha="0.59" />
+            android:id="@+id/ivListaFavoritos"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="10dp"
+            android:padding="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/favoritos"
+            android:background="@drawable/boton_redondo_blanco"/>
 
         <TextView
             android:id="@+id/tvSaludo"
@@ -24,10 +36,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/tv_saludo"
-            android:textSize="50dp"
+            android:textSize="40dp"
             android:textAllCaps="true"
-            android:fontFamily="@font/comic_sans"
-            android:textColor="@color/paleta2"
+            android:fontFamily="@font/comfortaa_regular"
+            android:textColor="@color/paleta3"
             android:gravity="center" />
 
         <TextView
@@ -36,9 +48,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:text="@string/tv_pregunta_user"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:fontFamily="@font/comfortaa_regular"
-            android:textColor="@color/paleta1"
+            android:textColor="@color/paleta4"
             android:gravity="center"
             android:layout_below="@+id/tvSaludo"/>
 
@@ -47,14 +59,44 @@
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:fontFamily="@font/comic_sans"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:textAlignment="center"
-            android:backgroundTint="@color/paleta1"
+            android:backgroundTint="#C5B2B2"
             android:background="@drawable/boton_redondeado_blanco"
             android:gravity="center_horizontal"
             android:layout_below="@+id/tvPreg"/>
+
+        <TextView
+            android:id="@+id/tvPregProd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/tv_pregunta_prod"
+            android:textSize="18dp"
+            android:fontFamily="@font/comfortaa_regular"
+            android:textColor="@color/paleta4"
+            android:gravity="center"
+            android:layout_below="@+id/spnTiendas"/>
+
+        <EditText
+            android:id="@+id/etBuscarProd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/et_buscar_prod"
+            android:fontFamily="@font/comic_sans"
+            android:backgroundTint="@color/paleta4"
+            android:textColorHint="#AC9B9B"
+            android:textColor="@color/paleta4"
+            android:gravity="center"
+            android:textSize="17dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:maxLines="1"
+            android:inputType="textCapWords"
+            android:layout_below="@+id/tvPregProd"/>
 
     </RelativeLayout>
 

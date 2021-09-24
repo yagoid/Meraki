@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.ProfileFragment"
-    android:background="@color/paleta3">
+    android:background="@color/paleta1">
 
     <ImageView
         android:id="@+id/backgroundImage"
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         android:src="@drawable/degradado"
-        android:alpha="0.59" />
+        android:alpha="0.1" />
 
     <TextView
         android:id="@+id/tvMisDatos"
@@ -22,8 +22,8 @@
         android:text="@string/tv_mis_datos"
         android:textSize="40dp"
         android:textAllCaps="true"
-        android:fontFamily="@font/comic_sans"
-        android:textColor="@color/paleta2"
+        android:fontFamily="@font/comfortaa_regular"
+        android:textColor="@color/paleta3"
         android:gravity="center" />
 
     <LinearLayout
@@ -43,16 +43,16 @@
             android:text="@string/et_nombre"
             android:textSize="18dp"
             android:fontFamily="@font/comfortaa_regular"
-            android:textColor="@color/paleta3"/>
+            android:textColor="@color/paleta4"/>
 
         <EditText
             android:id="@+id/etNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/comic_sans"
-            android:backgroundTint="@color/paleta1"
-            android:textColorHint="@color/paleta1"
-            android:textColor="@color/paleta1"
+            android:backgroundTint="@color/paleta4"
+            android:textColorHint="#AC9B9B"
+            android:textColor="@color/paleta4"
             android:gravity="center"
             android:textSize="17dp"
             android:layout_marginTop="5dp"
@@ -64,20 +64,20 @@
             android:id="@+id/tvEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:text="@string/et_correo"
             android:textSize="18dp"
             android:fontFamily="@font/comfortaa_regular"
-            android:textColor="@color/paleta3"/>
+            android:textColor="@color/paleta4"/>
 
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/comic_sans"
-            android:backgroundTint="@color/paleta1"
-            android:textColorHint="@color/paleta1"
-            android:textColor="@color/paleta1"
+            android:backgroundTint="@color/paleta4"
+            android:textColorHint="#AC9B9B"
+            android:textColor="@color/paleta4"
             android:gravity="center"
             android:textSize="17dp"
             android:layout_marginTop="5dp"

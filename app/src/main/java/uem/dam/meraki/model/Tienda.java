@@ -9,6 +9,9 @@ public class Tienda {
     private Double latitud;
     private Double longitud;
 
+    private String telefono;
+    private String direccion;
+
 
     public Tienda() {
     }
@@ -20,6 +23,14 @@ public class Tienda {
         this.tienda = tienda;
         this.latitud = latitud;
         this.longitud = longitud;
+    }
+
+    public Tienda(String nombre, String tienda, String telefono, String direccion, String uid) {
+        this.nombre = nombre;
+        this.tienda = tienda;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.uid = uid;
     }
 
     public String getUid() {
@@ -68,5 +79,22 @@ public class Tienda {
 
     public void setLongitud(Double longitud) {
         this.longitud = longitud;
+    }
+
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 }

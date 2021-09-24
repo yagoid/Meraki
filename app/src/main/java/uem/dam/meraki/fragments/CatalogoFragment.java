@@ -1,5 +1,7 @@
 package uem.dam.meraki.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +29,6 @@ import java.util.List;
 
 import uem.dam.meraki.R;
 import uem.dam.meraki.model.Producto;
-import uem.dam.meraki.model.Tienda;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,10 +45,17 @@ public class CatalogoFragment extends Fragment {
     TextView tvNombreTienda;
     TextView tvTipoTienda;
     ListView lvListaCatalogo;
+    TextView tvTelefono;
+    TextView tvDireccion;
+    TextView tvVerificado;
+    ImageView ivCorrect;
+    TextView tvCantLikes;
 
     private String id;
     private String nombre;
     private String tipoTienda;
+    private String telefono;
+    private String direccion;
 
     public CatalogoFragment() {
         // Required empty public constructor
@@ -61,6 +70,11 @@ public class CatalogoFragment extends Fragment {
         tvNombreTienda = view.findViewById(R.id.tvNombreTienda);
         tvTipoTienda = view.findViewById(R.id.tvTipoTienda);
         lvListaCatalogo = view.findViewById(R.id.lvListaCatalogo);
+        tvTelefono = view.findViewById(R.id.tvTelefono);
+        tvDireccion = view.findViewById(R.id.tvDireccion);
+        tvVerificado = view.findViewById(R.id.tvVerificado);
+        ivCorrect = view.findViewById(R.id.ivCorrect);
+        tvCantLikes = view.findViewById(R.id.tvCantLikes);
 
         // Inicializamos la firebase
         inicializarFirebase();
@@ -76,9 +90,45 @@ public class CatalogoFragment extends Fragment {
 
             // Añadimos los productos existentes a la lista
             listarDatos();
+
+            // Contamos los likes que tiene la tienda
+            contarLikes();
         }
 
         return view;
+    }
+
+    private void contarLikes() {
+        Query query = dr.child("Tiendas").child(id);
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Comprobamos si el child likes existe
+                    if (dataSnapshot.hasChild("likes")) {
+                        Query query2 = dr.child("Tiendas").child(id).child("likes");
+                        query2.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                long likes = dataSnapshot.getChildrenCount();
+                                String cantLikes = Long.toString(likes);
+
+                                tvCantLikes.setText(cantLikes);
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
+                        });
+                    } else {
+                        tvCantLikes.setText("0");
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
     private void listarDatos() {
@@ -107,19 +157,42 @@ public class CatalogoFragment extends Fragment {
 
     private void getInfoTienda() {
         // Consultamos en la base de datos los datos de la tienda pulsada
-        Query query = dr.child("Tiendas").orderByChild("uid").equalTo(id);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        Query query = dr.child("Tiendas").child(id);
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Tienda t = snapshot.getValue(Tienda.class);
-
-                    nombre = t.getNombre();
-                    tipoTienda = t.getTienda();
+                if (dataSnapshot.exists()) {
+                    nombre = dataSnapshot.child("nombre").getValue().toString();
+                    tipoTienda = dataSnapshot.child("tienda").getValue().toString();
 
                     // Rellenamos los textView con el nombre y el tipo de tienda
                     tvNombreTienda.setText(nombre);
                     tvTipoTienda.setText("Tienda de " + tipoTienda);
+
+                    // Si existe el teléfono y dirección, se rellenan en sus respectivos TextView
+                    if (dataSnapshot.hasChild("telefono") && dataSnapshot.hasChild("direccion")) {
+                        telefono = dataSnapshot.child("telefono").getValue().toString();
+                        direccion = dataSnapshot.child("direccion").getValue().toString();
+
+                        // Se rellenan los textView con el teléfono y dirección
+                        tvTelefono.setText("Teléfono: " + telefono);
+                        tvDireccion.setText("Dirección: " + direccion);
+
+                        // Si se pulsa el número de teléfono se llevará a la pantalla de llamar al mismo número
+                        tvTelefono.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String dial = "tel:" + telefono;
+                                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
+                            }
+                        });
+
+                    }
+                    // Si existe el nif, la tienda está verificada. Por lo que lo mostramos
+                    if (dataSnapshot.hasChild("nif")) {
+                        tvVerificado.setVisibility(View.VISIBLE);
+                        ivCorrect.setVisibility(View.VISIBLE);
+                    }
                 }
             }
             @Override

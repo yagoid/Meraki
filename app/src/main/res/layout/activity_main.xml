@@ -58,6 +58,7 @@
                 android:fontFamily="@font/comic_sans"
                 android:hint="@string/et_correo"
                 android:gravity="center"
+                android:imeOptions="actionUnspecified"
                 android:inputType="textEmailAddress"
                 android:maxLines="1" />
 
@@ -87,12 +88,12 @@
             android:background="@drawable/boton_redondeado_rojo"
             android:text="@string/btn_iniciar_sesión"
             android:textColor="@color/paleta1"
-            android:textSize="27sp"
+            android:textSize="26sp"
             android:textAllCaps="false"
-            android:fontFamily="@font/comic_sans"
+            android:fontFamily="@font/comfortaa_regular"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="15dp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/tvRegistrarse" />
@@ -104,8 +105,20 @@
             android:text="@string/tv_registrar"
             android:textColor="@color/paleta1"
             android:textSize="24sp"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/comfortaa_regular"
+            android:layout_centerInParent="true"
+            android:layout_above="@+id/tvInvitado"/>
+
+        <TextView
+            android:id="@+id/tvInvitado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Entrar como invitado"
+            android:textColor="@color/paleta5"
+            android:textSize="15sp"
             android:layout_marginBottom="30dp"
-            android:fontFamily="@font/comic_sans"
+            android:fontFamily="@font/comfortaa_regular"
             android:layout_centerInParent="true"
             android:layout_alignParentBottom="true"/>
 

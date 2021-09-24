@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/paleta4"
+    tools:context=".popups.PopupRegistrar">
+
+    <!--<ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/degradado"
+        android:alpha="0.1" />-->
+
+    <LinearLayout
+        android:id="@+id/llImagenes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/ivUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:layout_weight="1"
+            android:alpha="0.9"
+            android:background="@drawable/img_redondeado"
+            android:src="@drawable/white2" />
+
+        <ImageView
+            android:id="@+id/ivTienda"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:alpha="0.8"
+            android:scaleType="centerCrop"
+            android:background="@drawable/img_redondeado"
+            android:src="@drawable/white" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:id="@+id/llRegistrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/tvReg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa_regular"
+                android:gravity="center"
+                android:text="@string/tv_registrar"
+                android:textAllCaps="true"
+                android:textColor="@color/paleta3"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvUsuarioR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/tv_usuario_r"
+                android:fontFamily="@font/comfortaa_regular"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/paleta3"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tvUsuarioR2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/tv_usuario_r2"
+                android:textSize="15dp"
+                android:textColor="#2B2B2B"
+                android:gravity="center" />
+
+            <Button
+                android:id="@+id/btnRegUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="Registrar"
+                android:textColor="@color/paleta1"
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_regular"
+                android:background="@drawable/boton_redondeado_rojo"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_gravity="center"
+                android:onClick="RegUsuario"/>
+
+            <!--<View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="#6E6C6C"/>-->
+
+            <TextView
+                android:id="@+id/tvTiendaR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/tv_tienda_r"
+                android:fontFamily="@font/comfortaa_regular"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/paleta6"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tvTiendaR2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/tv_tienda_r2"
+                android:textSize="15dp"
+                android:textColor="#2B2B2B"
+                android:gravity="center" />
+
+            <Button
+                android:id="@+id/btnRegTienda"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="Registrar tienda"
+                android:textColor="@color/paleta1"
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_regular"
+                android:background="@drawable/boton_redondeado_azul"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_gravity="center"
+                android:onClick="RegTienda"/>
+
+            <TextView
+                android:id="@+id/tvCancelar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_cancelar"
+                android:textColor="@color/paleta6"
+                android:textSize="18sp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/comfortaa_regular"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</RelativeLayout>

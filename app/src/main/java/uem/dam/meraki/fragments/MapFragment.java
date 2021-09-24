@@ -34,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import uem.dam.meraki.CatalogoActivity;
 import uem.dam.meraki.R;
 import uem.dam.meraki.UsuarioActivity;
+import uem.dam.meraki.model.Producto;
 import uem.dam.meraki.model.Tienda;
 
 /**
@@ -55,7 +56,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private Double lat;
     private Double lon;
     private String tienda;
+    private String producto;
     private LatLng newTienda;
+
+    private String cantLikes;
 
     public MapFragment() {
         // Required empty public constructor
@@ -79,10 +83,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
             // Recibimos los datos que se pulsaron en el Spinner de HomeFragment
             tienda = getArguments().getString(UsuarioActivity.CLAVE_TIENDA);
+
+            // Recibimos los datos que se escribieron en el EditText de HomeFragment
+            producto = getArguments().getString(UsuarioActivity.CLAVE_PRODUCTO);
         }
 
         // Agragamos al textView las tiendas que se están buscando actualmente
-        if (!tienda.equals("Todas")) {
+        if (!tienda.equals("Todas") && producto.length() == 0) {
             tvTiendaBuscadas.setText("Tiendas de " + tienda);
         } else {
             tvTiendaBuscadas.setText("Todas las tiendas");
@@ -104,6 +111,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
@@ -114,7 +122,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         newTienda = null;
 
-        if (tienda.equals("Todas")) {
+        if (tienda.equals("Todas") && producto.length() == 0) {
 
             /* Buscamos en la base de datos TODAS las latitudes y longitudes de las tiendas para añadir un marcador en el mapa  */
             dr.child("Tiendas").addValueEventListener(new ValueEventListener() {
@@ -139,6 +147,33 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                         m.setTag(uid);
 
+
+                        // CREAMOS LA VENTANA DE INFORMACIÓN DEL MARKER PERSONALIZADO.
+                        mGoogleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                            @Override
+                            public View getInfoWindow(Marker marker) {
+                                return null;
+                            }
+
+                            @Override
+                            public View getInfoContents(Marker marker) {
+                                View v = getLayoutInflater().inflate(R.layout.infowindow_item, null);
+
+                                TextView tvTitle = v.findViewById(R.id.tvTitle);
+                                TextView tvSnippet = v.findViewById(R.id.tvSnippet);
+                                //TextView tvLikes = v.findViewById(R.id.tvLikes);
+
+                                String title = marker.getTitle();
+                                String information = marker.getSnippet();
+
+                                tvTitle.setText(title);
+                                tvSnippet.setText(information);
+                                //tvLikes.setText(tvTiendaBuscadas.getTag().toString());
+
+                                return v;
+                            }
+                        });
+
                         // Si se pulsa en la información del marcador nos llevará a la pantalla de su catálogo
                         mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                             @Override
@@ -152,6 +187,91 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         });
                     }
                 }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(getContext(), "Error en los datos", Toast.LENGTH_LONG).show();
+                }
+            });
+
+        } else if (producto.length() != 0) {
+            /* Buscamos en la base de datos las latitudes y longitudes de las tiendas filtradas por un producto para añadir un marcador en el mapa  */
+            Query query = dr.child("Tiendas");
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        final Tienda t = snapshot.getValue(Tienda.class);
+
+                        uid = t.getUid();
+
+                        Query query = dr.child("Tiendas").child(uid).child("catalogo");
+                        query.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                if (dataSnapshot.hasChild(producto)) {
+
+                                    uid = t.getUid();
+                                    String nombre = t.getNombre();
+                                    String tiendaElegida = t.getTienda();
+                                    Double latitud = t.getLatitud();
+                                    Double longitud = t.getLongitud();
+
+                                    newTienda = new LatLng(latitud, longitud);
+
+                                    // Añadimos la marca donde haya una tienda con las características correspondientes
+                                    m = mGoogleMap.addMarker(new MarkerOptions().position(newTienda).title(nombre)
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.logo_ic))
+                                            .snippet("Tienda de " + tiendaElegida));
+
+                                    m.setTag(uid);
+
+                                    // CREAMOS LA VENTANA DE INFORMACIÓN DEL MARKER PERSONALIZADA.
+                                    mGoogleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                                        @Override
+                                        public View getInfoWindow(Marker marker) {
+                                            return null;
+                                        }
+
+                                        @Override
+                                        public View getInfoContents(Marker marker) {
+                                            View v = getLayoutInflater().inflate(R.layout.infowindow_item, null);
+
+                                            TextView tvTitle = v.findViewById(R.id.tvTitle);
+                                            TextView tvSnippet = v.findViewById(R.id.tvSnippet);
+
+                                            String title = marker.getTitle();
+                                            String information = marker.getSnippet();
+
+                                            tvTitle.setText(title);
+                                            tvSnippet.setText(information);
+
+                                            return v;
+                                        }
+                                    });
+
+                                    // Si se pulsa en la información del marcador nos llevará a la pantalla de su catálogo
+                                    mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                                        @Override
+                                        public void onInfoWindowClick(Marker marker) {
+                                            String id = marker.getTag().toString();
+
+                                            Intent i = new Intent(getActivity(), CatalogoActivity.class);
+                                            i.putExtra(CLAVE_UID, id);
+                                            startActivity(i);
+                                        }
+                                    });
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Toast.makeText(getContext(), "Error en listar los datos", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     Toast.makeText(getContext(), "Error en los datos", Toast.LENGTH_LONG).show();
@@ -181,6 +301,30 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                 .snippet("Tienda de " + tiendaElegida));
 
                         m.setTag(uid);
+
+                        // CREAMOS LA VENTANA DE INFORMACIÓN DEL MARKER PERSONALIZADA.
+                        mGoogleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                            @Override
+                            public View getInfoWindow(Marker marker) {
+                                return null;
+                            }
+
+                            @Override
+                            public View getInfoContents(Marker marker) {
+                                View v = getLayoutInflater().inflate(R.layout.infowindow_item, null);
+
+                                TextView tvTitle = v.findViewById(R.id.tvTitle);
+                                TextView tvSnippet = v.findViewById(R.id.tvSnippet);
+
+                                String title = marker.getTitle();
+                                String information = marker.getSnippet();
+
+                                tvTitle.setText(title);
+                                tvSnippet.setText(information);
+
+                                return v;
+                            }
+                        });
 
                         // Si se pulsa en la información del marcador nos llevará a la pantalla de su catálogo
                         mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {

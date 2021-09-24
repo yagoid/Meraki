@@ -35,6 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import uem.dam.meraki.fragments.HomeFragment;
 import uem.dam.meraki.fragments.MapFragment;
 import uem.dam.meraki.fragments.ProfileFragment;
+import uem.dam.meraki.popups.PopupInvitado;
 
 public class UsuarioActivity extends AppCompatActivity {
 
@@ -43,6 +44,7 @@ public class UsuarioActivity extends AppCompatActivity {
     public static final String LAT_KEY = "LAT";
     public static final String LON_KEY = "LON";
     public static final String CLAVE_TIENDA = "Tienda";
+    public static final String CLAVE_PRODUCTO = "Producto";
     public static final String CLAVE_EMAIL = "Email";
     public static final String CLAVE_NOMBRE = "Nombre";
 
@@ -57,9 +59,11 @@ public class UsuarioActivity extends AppCompatActivity {
     Location miLoc;
 
     private TextView tvTienda;
+    private TextView tvProducto;
 
     private String uid;
     private String tienda;
+    private String producto;
     private String email;
     private String nombre;
 
@@ -70,55 +74,65 @@ public class UsuarioActivity extends AppCompatActivity {
 
         mBottomNavigation = findViewById(R.id.bottomNavigation);
         tvTienda = findViewById(R.id.tvTienda);
+        tvProducto = findViewById(R.id.tvProducto);
 
         // Inicializamos la firebase
         InicializarFirebase();
 
-        // Si existe un usuario logueado se sigue adelante con el programa
+        // Si existe un usuario logueado significa que el usuario está registrado
         if (fa.getCurrentUser() != null) {
+
+            // Recogemos el id de la tienda logada
+            uid = fa.getCurrentUser().getUid();
 
             // Recogemos información del usuario
             getInfoUser();
 
-            // Pedimos los permisos de ubicación
-            pedirPermisos();
+        }
 
-            // Cuando se habra UsuarioActivity veremos primero el fragment HomeFragment
-            abrirHomeFragment();
+        // Pedimos los permisos de ubicación
+        pedirPermisos();
 
-            // Método para cambiar los colores del bottom navigation view
-            changeColor();
+        // Cuando se habra UsuarioActivity veremos primero el fragment HomeFragment
+        abrirHomeFragment();
 
-            // Controlamos cuando se pulsa el bottomNavigation para mostrar su correspondiente fragment
-            mBottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        // Método para cambiar los colores del bottom navigation view
+        changeColor();
 
-                    if (menuItem.getItemId() == R.id.menu_home) {
-                        // Abrimos el HomeFragment
-                        abrirHomeFragment();
+        // Controlamos cuando se pulsa el bottomNavigation para mostrar su correspondiente fragment
+        mBottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                        // Recibimos los datos del spinner mandados del HomeFragment
-                        tienda = tvTienda.getText().toString().trim();
-                    }
+                if (menuItem.getItemId() == R.id.menu_home) {
+                    // Abrimos el HomeFragment
+                    abrirHomeFragment();
 
-                    if (menuItem.getItemId() == R.id.menu_maps) {
-                        // Recibimos los datos del spinner mandados del HomeFragment
-                        tienda = tvTienda.getText().toString().trim();
-                        // Abrimos el MapFragment
-                        abrirMapFragment();
-                    }
+                    tvProducto.setText("");
+                }
 
-                    if (menuItem.getItemId() == R.id.menu_profile) {
+                if (menuItem.getItemId() == R.id.menu_maps) {
+                    // Recibimos los datos del spinner mandados del HomeFragment
+                    tienda = tvTienda.getText().toString().trim();
+                    producto = tvProducto.getText().toString();
+
+                    // Abrimos el MapFragment
+                    abrirMapFragment();
+                }
+
+                if (menuItem.getItemId() == R.id.menu_profile) {
+                    if (fa.getCurrentUser() != null) {
                         // Abrimos el ProfileFragment
                         abrirProfileFragment();
+                    } else {
+                        Intent i = new Intent(UsuarioActivity.this, PopupInvitado.class);
+                        startActivity(i);
                     }
-
-                    return true;
                 }
-            });
 
-        }
+                return true;
+            }
+        });
 
     }
 
@@ -136,6 +150,7 @@ public class UsuarioActivity extends AppCompatActivity {
         bundle.putDouble(LON_KEY, miLoc.getLongitude());
 
         bundle.putString(CLAVE_TIENDA, tienda);
+        bundle.putString(CLAVE_PRODUCTO, producto);
 
         // Pasamos la latitud y longitud de nuestra posición actual recojida con anterioridad a MapsFragment
         mapFragment.setArguments(bundle);
@@ -192,7 +207,6 @@ public class UsuarioActivity extends AppCompatActivity {
 
     // Recogemos la información del usuario logado de la base de datos
     private void getInfoUser() {
-        uid = fa.getCurrentUser().getUid();
         dr.child("Usuarios").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -201,6 +215,7 @@ public class UsuarioActivity extends AppCompatActivity {
                     email = dataSnapshot.child("email").getValue().toString();
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
@@ -221,10 +236,11 @@ public class UsuarioActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_cerrar_sesion, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         // Controlamos si se ha pulsado cerrar sesión
-        if (item.getItemId() == R.id.itmCerrarSesion){
+        if (item.getItemId() == R.id.itmCerrarSesion) {
             fa.signOut();
             Intent i = new Intent(UsuarioActivity.this, MainActivity.class);
             startActivity(i);
@@ -236,7 +252,7 @@ public class UsuarioActivity extends AppCompatActivity {
     // Con este método verificamos si tenemos los permisos de la localización
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
+        switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_ACCESS_LOCATION:
                 // Si los permisos de localización son aceptados entonces el programas sigue
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -270,6 +286,16 @@ public class UsuarioActivity extends AppCompatActivity {
     private void obtenerUbicacionActual() {
         flClient = LocationServices.getFusedLocationProviderClient(UsuarioActivity.this);
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         flClient.getLastLocation().addOnSuccessListener(UsuarioActivity.this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.CatalogoFragment"
-    android:background="@color/paleta5">
+    android:background="@color/paleta1">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -15,50 +15,118 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@drawable/degradad2"
-            android:alpha="0.63"/>
+            android:src="@drawable/degradado"
+            android:alpha="0.2"/>
+
+        <ImageView
+            android:id="@+id/ivCorrect"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/correct"
+            android:layout_alignParentRight="true"
+            android:visibility="invisible"/>
+
+       <TextView
+           android:id="@+id/tvVerificado"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="10dp"
+           android:paddingRight="30dp"
+           android:textColor="@color/paleta4"
+           android:fontFamily="@font/comic_sans"
+           android:text="Tienda verificada"
+           android:layout_alignParentRight="true"
+           android:textSize="13sp"
+           android:visibility="invisible"/>
+
+        <ImageView
+            android:id="@+id/ivLike"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_below="@+id/ivFavoritos"
+            android:src="@drawable/like"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/tvCantLikes"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_below="@+id/ivLike"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/paleta4"
+            android:fontFamily="@font/comic_sans"
+            android:textSize="17sp"
+            android:layout_marginLeft="16dp"/>
+
+        <TextView
+            android:id="@+id/tvCatalogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:gravity="center"
+            android:fontFamily="@font/comfortaa_regular"
+            android:textColor="@color/paleta6"
+            android:text="@string/tv_catalogo"
+            android:textSize="28sp"/>
 
         <TextView
             android:id="@+id/tvNombreTienda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
+            android:layout_below="@+id/tvCatalogo"
             android:fontFamily="@font/comic_sans"
-            android:textColor="@color/paleta1"
+            android:textColor="@color/paleta4"
             android:textSize="26sp"/>
 
         <TextView
             android:id="@+id/tvTipoTienda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:fontFamily="@font/comic_sans"
-            android:textColor="@color/paleta1"
+            android:textColor="@color/paleta4"
             android:layout_below="@+id/tvNombreTienda"
             android:textSize="18sp"/>
-
-        <TextView
-            android:id="@+id/tvCatalogo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:fontFamily="@font/comic_sans"
-            android:textColor="@color/paleta2"
-            android:layout_below="@+id/tvTipoTienda"
-            android:text="@string/tv_catalogo"
-            android:textSize="28sp"/>
 
         <ListView
             android:id="@+id/lvListaCatalogo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="60dp"
             android:backgroundTint="@color/paleta2"
             android:background="@drawable/borde_redondeado"
-            android:layout_below="@+id/tvCatalogo"/>
+            android:layout_below="@+id/tvTipoTienda"/>
+
+        <TextView
+            android:id="@+id/tvTelefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/paleta4"
+            android:fontFamily="@font/comic_sans"
+            android:layout_above="@+id/tvDireccion"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:id="@+id/tvDireccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:fontFamily="@font/comic_sans"
+            android:textColor="@color/paleta4"
+            android:textSize="17sp"
+            android:paddingBottom="5dp"
+            android:layout_alignParentBottom="true"/>
 
     </RelativeLayout>
 

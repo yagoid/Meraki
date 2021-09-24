@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Meraki</string>
+    <string name="app_name">MERAKI</string>
     <string name="et_correo">Correo electrónico</string>
     <string name="et_password">Contraseña</string>
     <string name="btn_iniciar_sesión">Iniciar sesión</string>
@@ -25,24 +25,29 @@
 
     <string-array name="tiendas_array">
         <item>Comida</item>
+        <item>Deporte</item>
         <item>Ropa</item>
         <item>Bricolaje</item>
         <item>Juguetes</item>
-        <item>Otros</item>
+        <item>Mascotas</item>
+        <item>Muebles</item>
     </string-array>
 
     <string-array name="tiendas_usuarios_array">
         <item>Todas</item>
         <item>Comida</item>
+        <item>Deporte</item>
         <item>Ropa</item>
         <item>Bricolaje</item>
         <item>Juguetes</item>
+        <item>Mascotas</item>
+        <item>Muebles</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tv_saludo">HOLA!</string>
-    <string name="tv_pregunta_user">¿Qué tiendas desea explorar?</string>
+    <string name="tv_pregunta_user">¿Qué tiendas deseas explorar?</string>
     <string name="tv_mis_datos">MIS DATOS</string>
     <string name="btn_elegir_ubicacion">Elegir ubicación</string>
     <string name="pass_pocos_caracteres">La contraseña debe tener mas de cinco caracteres</string>
@@ -55,6 +60,27 @@
     <string name="et_precio">Precio</string>
     <string name="btn_eliminar">Eliminar</string>
     <string name="btn_agregar">Añadir producto</string>
+    <string name="tv_telefono">Número de teléfono</string>
+    <string name="et_telefono">Ej: 123 456 789</string>
+    <string name="tv_direccion">Dirección de tienda</string>
+    <string name="et_direccion">Ej: Calle Durero, 23</string>
+    <string name="btn_guardar">Guardar</string>
+    <string name="tv_info">(Esta información aparecerá a los usuarios. Si se rellenan estos datos, la tienda tendrá más posiblilidad de éxito)</string>
+    <string name="telefono_incorrecto">El teléfono introducido es incorrecto</string>
+    <string name="et_nif">NIF</string>
+    <string name="tv_nif_info">(Si se rellena el NIF, les aparecerá a los ususarios que esta tienda está verificada)</string>
+    <string name="btn_verificar">Verificar</string>
+    <string name="msj_tienda_registrada">Tienda registrada</string>
+    <string name="msj_tienda_no_registrada">Tienda no registrada</string>
+    <string name="tv_mis_favoritos">MIS FAVORITOS</string>
+    <string name="tv_pregunta_prod">¿Buscas un producto en especial?</string>
+    <string name="et_buscar_prod">"Ej: Agua "</string>
+    <string name="tv_tienda_r">¿Tienes una tienda?</string>
+    <string name="tv_tienda_r2">Registrate para dar a conocer más tu negocio, llegar a un público más amplio, promocionarte y mucho más.</string>
+    <string name="tv_usuario_r">¿Quieres unirte a MERAKI?</string>
+    <string name="tv_usuario_r2">Registrate para ver todas las tiendas de tu zona, qué venden, a qué precio y mucho más.</string>
+    <string name="tv_usuario_inv2">Registrate para acceder a todas las funcionalidades. \n ¡Totalmente gratis!</string>
+    <string name="tv_usuario_inv">PARA ACCEDER A ESTA FUNCIÓN ES NECESARIO REGISTRARSE</string>
 
 
 </resources>

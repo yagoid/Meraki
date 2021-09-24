@@ -98,6 +98,9 @@ public class EditarFragment extends Fragment {
                         Toast.makeText(getContext(), msj, Toast.LENGTH_LONG).show();
 
                     } else {
+                        // Trasformamos el texto del producto a mayusculas
+                        producto = producto.toUpperCase();
+
                         // Añadimos el producto que se haya rellenado a la firebase
                         Map<String, Object> insertarProducto = new HashMap<>();
                         insertarProducto.put("producto", producto);
