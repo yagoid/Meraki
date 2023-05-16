@@ -1,4 +1,6 @@
 # Meraki
+![Algunas pantallas de Meraki](app/src/main/res/drawable-v24/meraki.png)
+
 Meraki es una aplicación para dispositivos Android que tiene como objetivo principal brindar a las tiendas más pequeñas la oportunidad de llegar a un mayor número de clientes. Esta aplicación permite a los usuarios descubrir y explorar las tiendas locales que se han registrado en su área, proporcionando información detallada sobre su ubicación, productos disponibles y otros detalles relevantes.
 
 ## Características principales
